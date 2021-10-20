@@ -44,6 +44,46 @@ jobs:
           echo "::set-output name=AWS_SECRET_KEY_NAME::AWS_SECRET_${{steps.branch.outputs.uppercase}}"
           echo "::set-output name=CF_DISTRIBUTION_NAME::CF_DISTRIBUTION_${{steps.branch.outputs.uppercase}}"
 
+      - name: Setup NodeJS
+        uses: actions/setup-node@master
+
+      - name: Run Yarn Install
+        run: yarn install
+
+      - name: Run Yarn Build
+        id: yarn-build
+        run: yarn build
+
+      - name: Yarn Build Success Report
+        uses: actions/github-script@0.9.0
+        if: steps.yarn-build.outcome != 'success' && github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `Yarn build failed. Please debug in Actions tab.`
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Yarn Build Failure Report
+        uses: actions/github-script@0.9.0
+        if: steps.yarn-build.outcome == 'success' && github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `Yarn build successful.`
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -114,7 +154,7 @@ jobs:
         env:
           # Same here. Laziness. I'll clean up later.
           AWS_S3_BUCKET: 'zbmowrey-com-${{ steps.branch.outputs.lowercase }}-web-secondary'
-          SOURCE_DIR: "src"
+          SOURCE_DIR: "dist"
 
       # If a cloudfront distribution key is defined, let's invalidate /* and refresh the cache.
 
