@@ -143,7 +143,7 @@ jobs:
         env:
           # This should really be a variable, but I got lazy.
           AWS_S3_BUCKET: 'zbmowrey-com-${{ steps.branch.outputs.lowercase }}-web-primary'
-          SOURCE_DIR: "src"
+          SOURCE_DIR: "dist"
 
       - name: s3 Sync Web Secondary on Push
         id: s3_sync
