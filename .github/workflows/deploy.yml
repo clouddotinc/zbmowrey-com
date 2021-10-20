@@ -3,10 +3,10 @@ on:
     paths:
       - '**terraform/**'
     branches:
-      - temporarily_ignore
+      - develop
   push:
     branches:
-      - temporarily_ignore
+      - develop
 jobs:
   terraform_plan:
     timeout-minutes: 30
