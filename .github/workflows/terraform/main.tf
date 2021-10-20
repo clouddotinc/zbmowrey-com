@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "web-primary" {
   acl      = "public-read"
   website {
     index_document = "index.html"
-    error_document = "404.html"
+    error_document = "index.html"
   }
   policy = jsonencode({
     Version = "2012-10-17"
@@ -40,7 +40,7 @@ resource "aws_s3_bucket" "web-secondary" {
   acl      = "public-read"
   website {
     index_document = "index.html"
-    error_document = "404.html"
+    error_document = "index.html"
   }
   policy = jsonencode({
     Version = "2012-10-17"
@@ -125,7 +125,7 @@ resource "aws_cloudfront_distribution" "web-dist" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = false
     acm_certificate_arn            = aws_acm_certificate.web-cert.arn
     ssl_support_method             = "sni-only"
   }
