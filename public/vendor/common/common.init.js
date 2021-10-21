@@ -1,24 +1,4 @@
 /*
-jQuery Hover3d
-*/
-(function($) {
-	if ($.isFunction($.fn['hover3d']) && $('.hover-effect-3d').length) {
-
-		theme.fn.execOnceTroughEvent( '.hover-effect-3d', 'mouseover.trigger.hover3d', function(){
-			$(this).each(function() {
-				var $this = $(this);
-
-				$this.hover3d({
-					selector: ".thumb-info"
-				});
-			});
-		});
-
-
-	}
-}).apply(this, [jQuery]);
-
-/*
 * Title Border
 */
 if($('[data-title-border]').length) {
