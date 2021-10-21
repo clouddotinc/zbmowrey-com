@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "web-primary" {
   acl      = "public-read"
   website {
     index_document = "index.html"
-    error_document = "404.html"
+    error_document = "index.html"
   }
   policy = jsonencode({
     Version = "2012-10-17"
@@ -40,7 +40,7 @@ resource "aws_s3_bucket" "web-secondary" {
   acl      = "public-read"
   website {
     index_document = "index.html"
-    error_document = "404.html"
+    error_document = "index.html"
   }
   policy = jsonencode({
     Version = "2012-10-17"
@@ -57,6 +57,17 @@ resource "aws_s3_bucket" "web-secondary" {
 resource "aws_s3_bucket" "web-logs" {
   provider = aws.secondary # logs should be written to us-east-1
   bucket   = local.web_log_bucket
+  lifecycle_rule {
+    id      = "rotating-logs"
+    enabled = true
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+    expiration {
+      days = 60
+    }
+  }
 }
 
 resource "aws_cloudfront_origin_access_identity" "web-oai" {
@@ -72,6 +83,19 @@ resource "aws_cloudfront_distribution" "web-dist" {
   default_root_object = "index.html"
 
   aliases = [local.app_domain, join(".", ["www", local.app_domain])]
+
+  custom_error_response {
+    error_code = 404
+    response_code = 200
+    response_page_path = "/index.html"
+    error_caching_min_ttl = 30
+  }
+  custom_error_response {
+    error_code = 403
+    response_code = 200
+    response_page_path = "/index.html"
+    error_caching_min_ttl = 30
+  }
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
@@ -125,7 +149,7 @@ resource "aws_cloudfront_distribution" "web-dist" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = false
     acm_certificate_arn            = aws_acm_certificate.web-cert.arn
     ssl_support_method             = "sni-only"
   }
