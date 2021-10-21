@@ -57,6 +57,17 @@ resource "aws_s3_bucket" "web-secondary" {
 resource "aws_s3_bucket" "web-logs" {
   provider = aws.secondary # logs should be written to us-east-1
   bucket   = local.web_log_bucket
+  lifecycle_rule {
+    id      = "rotating-logs"
+    enabled = true
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+    expiration {
+      days = 60
+    }
+  }
 }
 
 resource "aws_cloudfront_origin_access_identity" "web-oai" {
