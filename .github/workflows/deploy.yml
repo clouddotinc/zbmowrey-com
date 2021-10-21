@@ -4,9 +4,13 @@ on:
       - '**terraform/**'
     branches:
       - develop
+      - staging
+      - main
   push:
     branches:
       - develop
+      - staging
+      - main
 jobs:
   terraform_plan:
     timeout-minutes: 30
