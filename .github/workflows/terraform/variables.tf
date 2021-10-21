@@ -35,15 +35,23 @@ variable "web_log_bucket" {
 }
 variable "aaaa_records" {
   type = map(string)
+  default = {}
 }
 variable "mx_records" {
   type = map(list(string))
+  default = {}
 }
 variable "cname_records" {
   type = map(string)
+  default = {}
 }
 variable "txt_records" {
   type = map(list(string))
+  default = {}
+}
+variable "ns_records" {
+  type = map(list(string))
+  default = {}
 }
 variable "vpc_cidr" {
   type    = string
