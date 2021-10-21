@@ -119,7 +119,7 @@ jobs:
 
       - name: Github PR Comment with Terraform Plan Detail
         if: github.event_name == 'pull_request'
-        uses: robburger/terraform-pr-commenter@v1
+        uses: robburger/terraform-pr-commenter@v1.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EXPAND_SUMMARY_DETAILS: 'false'

@@ -19,18 +19,18 @@ Add repository secrets:
 
     AWS_KEY_DEVELOP
     AWS_SECRET_DEVELOP
-    CF_DISTRIBUTION_DEVELOP
+    CF_DISTRIBUTION_DEVELOP (initially empty. Add the distribution ID after initial creation)
 
     If you are using a staging environment with the 'staging' branch name:
 
     AWS_KEY_STAGING
     AWS_SECRET_STAGING
-    CF_DISTRIBUTION_STAGING
+    CF_DISTRIBUTION_STAGING (initially empty. Add the distribution ID after initial creation)
 
     For your main/production environment. Branch name 'main': 
     AWS_KEY_MAIN
     AWS_SECRET_MAIN
-    CF_DISTRIBUTION_MAIN
+    CF_DISTRIBUTION_MAIN (initially empty. Add the distribution ID after initial creation)
 
     Your token for tf cloud. Be sure your workspace is using LOCAL deployment (settings > general).
     TERRAFORM_CLOUD_TOKEN
