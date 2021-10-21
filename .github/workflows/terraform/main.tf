@@ -1,3 +1,7 @@
+
+# We're going to create a multi-bucket static site in separate regions
+# to provide high availability in case of regional failure. 
+
 locals {
   web_primary_bucket   = join("-", [var.app_name, terraform.workspace, var.web_primary_bucket])
   web_secondary_bucket = join("-", [var.app_name, terraform.workspace, var.web_secondary_bucket])
