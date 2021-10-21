@@ -58,7 +58,7 @@ jobs:
         id: yarn-build
         run: yarn build
 
-      - name: Yarn Build Success Report
+      - name: Yarn Build Failure Report
         uses: actions/github-script@0.9.0
         if: steps.yarn-build.outcome != 'success' && github.event_name == 'pull_request'
         with:
@@ -73,7 +73,7 @@ jobs:
               body: output
             })
 
-      - name: Yarn Build Failure Report
+      - name: Yarn Build Success Report
         uses: actions/github-script@0.9.0
         if: steps.yarn-build.outcome == 'success' && github.event_name == 'pull_request'
         with:
