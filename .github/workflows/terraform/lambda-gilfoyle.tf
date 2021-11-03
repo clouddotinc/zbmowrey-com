@@ -1,3 +1,7 @@
+resource "aws_cloudwatch_log_group" "gilfoyle" {
+  provider = aws.secondary
+  name = "zbmowrey-com-${terraform.workspace}-gilfoyle-logs"
+}
 
 resource "aws_lambda_permission" "gilfoyle" {
   statement_id  = "AllowGilfoyleLambdaInvoke"
@@ -5,10 +9,6 @@ resource "aws_lambda_permission" "gilfoyle" {
   function_name = module.gilfoyle-lambda.lambda_function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${module.gilfoyle-api.apigatewayv2_api_execution_arn}/*/*/*"
-}
-
-resource "aws_cloudwatch_log_group" "gilfoyle" {
-  name = "zbmowrey-com-${terraform.workspace}-gilfoyle-logs"
 }
 
 module "gilfoyle-lambda" {
@@ -24,6 +24,18 @@ module "gilfoyle-lambda" {
   }
   tags = {
     CostCenter = "lambda-gilfoyle"
+  }
+  attach_policy_statements = true
+  policy_statements = {
+    dynamodb = {
+      effect    = "Allow",
+      actions   = [
+         "dynamodb:GetItem",
+         "dynamodb:Query",
+         "dynamodb:UpdateItem"
+      ],
+      resources = [aws_dynamodb_table.global-store.arn]
+    }
   }
 }
 
@@ -51,7 +63,7 @@ module "gilfoyle-api" {
 
   # Routes and integrations
   integrations = {
-    "GET /" = {
+    "POST /" = {
       lambda_arn             = module.gilfoyle-lambda.lambda_function_arn
       payload_format_version = "2.0"
       timeout_milliseconds   = 12000
@@ -67,3 +79,11 @@ module "gilfoyle-api" {
   }
 }
 
+resource "aws_route53_record" "gilfoyle" {
+  depends_on = [module.gilfoyle-api]
+  name    = join(".",["gilfoyle",local.app_domain])
+  type    = "CNAME"
+  ttl     = 300
+  zone_id = aws_route53_zone.public.id
+  records = [module.gilfoyle-api.apigatewayv2_domain_name_target_domain_name]
+}
