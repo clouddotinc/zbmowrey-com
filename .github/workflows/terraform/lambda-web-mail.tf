@@ -1,6 +1,4 @@
-
-# Creates a
-
+#
 #resource "aws_lambda_permission" "lambda_permission" {
 #  statement_id  = "AllowMyDemoAPIInvoke"
 #  action        = "lambda:InvokeFunction"
@@ -68,4 +66,4 @@
 #    Name = "web-mail-api"
 #  }
 #}
-
+#
