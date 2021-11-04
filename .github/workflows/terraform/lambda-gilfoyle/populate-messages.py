@@ -2,6 +2,7 @@ import boto3
 from botocore.config import Config
 import json
 import requests
+import random
 
 boto_config = Config(
     region_name='us-east-1',
@@ -60,8 +61,25 @@ def create_messages():
         "Says here that she's looking for a man on the go. You don't \"go\" anywhere.",
         "My feeling is if you're the CEO of a company and you're dumb enough to leave your login info on a Post-it note on your desk, while the people that you fucking ripped off are physically in your office, it's not a hack. It's barely social engineering. It's more like natural selection.",
         "Pretend you've seen a woman before.",
-        "You'd like to fuck my code, wouldn't you? Hey, would you like to masturbate to the subroutine I just wrote?"
+        "You'd like to fuck my code, wouldn't you? Hey, would you like to masturbate to the subroutine I just wrote?",
+        "You're gay for my code. You're code gay!",
+        "I find parades to be impotent displays of authoritarianism.",
+        "It has all that going for it, Richard, and I still hate it.",
+        "Did it take you a long time? I'm glad I didn't do it then.",
+        "Are you saying 'work will set you free'?",
+        ":middle_finger: How does this translate into Farsi?",
+        "Look, you have two guys on either side with their dicks, tip to tip, so you're going full-length. Four, see?",
+        "The measurement that we're looking for, really, is dick to floor. Call that D2F.",
+        "Unless you can hotswap dicks in and out.",
+        "He's not gonna do shit. He's a coder. By definition, we're all pussies.",
+        "Why don't we livestream me killing you?",
+        "I bet you're right. He probably is just ripping his hair out somewhere. I wish I could see that.",
+        "It is a mystery why you think you'll ever see a woman naked.",
+        "My servers could handle 10 times the traffic if they weren't busy apologizing for your shit codebase.",
     ]
+    random.shuffle(messages)
+    random.shuffle(messages)
+    random.shuffle(messages)
     for key, message in enumerate(messages):
         dynamo_key = "gilfoyle#messages#%s" % key
         put_message(dynamo_key, message)

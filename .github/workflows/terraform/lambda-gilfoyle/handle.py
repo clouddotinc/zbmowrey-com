@@ -104,7 +104,7 @@ def handle(event, context):
 
     i = get_iterator()
 
-    if i > 25:
+    if i > 39:
         reset_iterator()
     else:
         increment_iterator()
