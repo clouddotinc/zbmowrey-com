@@ -1,2 +1,3 @@
-boto3
+#boto3
+#boto3 is already installed on all lambda runtimes
 requests
