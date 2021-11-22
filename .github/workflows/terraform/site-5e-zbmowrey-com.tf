@@ -18,6 +18,16 @@ resource "aws_s3_bucket" "five-e-tools" {
   tags = {
     CostCenter = local.app_name
   }
+  lifecycle_rule {
+    id      = "ia-after-30"
+    enabled = true
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+  }
+
   policy   = jsonencode({
     Version   = "2012-10-17"
     Statement = [
@@ -56,6 +66,28 @@ resource "aws_acm_certificate" "five-e-tools" {
     Name = "5e-tools Managed by Terraform"
     CostCenter = local.app_name
   }
+}
+
+resource "aws_route53_record" "five-e-tools-acm" {
+  for_each = {
+    for option in aws_acm_certificate.five-e-tools.domain_validation_options : option.domain_name => {
+      name   = option.resource_record_name
+      record = option.resource_record_value
+      type   = option.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = aws_route53_zone.public.zone_id
+}
+
+resource "aws_acm_certificate_validation" "five-e-tools" {
+  certificate_arn         = aws_acm_certificate.five-e-tools.arn
+  validation_record_fqdns = [for record in aws_route53_record.five-e-tools-acm : record.fqdn]
 }
 
 resource "aws_cloudfront_origin_access_identity" "five-e-tools" {

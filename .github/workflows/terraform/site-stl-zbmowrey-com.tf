@@ -1,33 +1,33 @@
 # This app is NOT multi-region, and everything is hosted in us-east-1.
 
-locals {
-  stl_base_domain = join(".", ["stl", local.app_domain])
-  stl_app_name = "stl-zbmowrey-com"
-  stl_web_bucket  = "${local.stl_app_name}-${terraform.workspace}-web-primary"
-  stl_origin_id   = "${terraform.workspace}-stl-origin"
-}
-
-resource "aws_s3_bucket" "stl" {
-  provider = aws.secondary
-  bucket   = local.stl_web_bucket
-  acl      = "public-read"
-  tags = {
-    CostCenter = local.stl_app_name
-  }
-  policy   = jsonencode({
-    Version   = "2012-10-17"
-    Statement = [
-      {
-        Sid       = "PublicRead"
-        Effect    = "Allow"
-        Principal = "*"
-        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
-        Resource  = ["arn:aws:s3:::${local.stl_web_bucket}/*"]
-      }
-    ]
-  })
-}
-
+#locals {
+#  stl_base_domain = join(".", ["stl", local.app_domain])
+#  stl_app_name = "stl-zbmowrey-com"
+#  stl_web_bucket  = "${local.stl_app_name}-${terraform.workspace}-web-primary"
+#  stl_origin_id   = "${terraform.workspace}-stl-origin"
+#}
+#
+#resource "aws_s3_bucket" "stl" {
+#  provider = aws.secondary
+#  bucket   = local.stl_web_bucket
+#  acl      = "public-read"
+#  tags = {
+#    CostCenter = local.stl_app_name
+#  }
+#  policy   = jsonencode({
+#    Version   = "2012-10-17"
+#    Statement = [
+#      {
+#        Sid       = "PublicRead"
+#        Effect    = "Allow"
+#        Principal = "*"
+#        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
+#        Resource  = ["arn:aws:s3:::${local.stl_web_bucket}/*"]
+#      }
+#    ]
+#  })
+#}
+#
 #resource "aws_route53_record" "stl" {
 #  provider = aws.secondary
 #  name     = local.stl_base_domain

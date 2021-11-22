@@ -15,7 +15,11 @@ boto_config = Config(
 )
 
 dynamodb = boto3.client('dynamodb', config=boto_config)
+
+# TF should inject the table name and slack URL into SSM Parameter Store.
+
 table = "GlobalStore"
+
 iterator_key = "gilfoyle#iterator"
 
 
