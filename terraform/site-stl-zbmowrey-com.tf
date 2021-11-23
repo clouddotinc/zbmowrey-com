@@ -3,8 +3,8 @@
 #locals {
 #  stl_base_domain = join(".", ["stl", local.app_domain])
 #  stl_app_name = "stl-zbmowrey-com"
-#  stl_web_bucket  = "${local.stl_app_name}-${terraform.workspace}-web-primary"
-#  stl_origin_id   = "${terraform.workspace}-stl-origin"
+#  stl_web_bucket  = "${local.stl_app_name}-${var.environment}-web-primary"
+#  stl_origin_id   = "${var.environment}-stl-origin"
 #}
 #
 #resource "aws_s3_bucket" "stl" {
@@ -120,7 +120,7 @@
 #    ssl_support_method             = "sni-only"
 #  }
 #  tags = {
-#    Description = "${local.stl_app_name}-${terraform.workspace}"
+#    Description = "${local.stl_app_name}-${var.environment}"
 #    CostCenter = local.stl_app_name
 #  }
 #}

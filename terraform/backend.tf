@@ -1,9 +1,9 @@
 terraform {
   backend "remote" {
-    organization = "zbmowrey-aws"
+    organization = "zbmowrey"
 
     workspaces {
-      prefix = "zbmowrey-com-web-"
+      prefix = "zbmowrey-com-"
     }
   }
 }

@@ -3,16 +3,17 @@
 # to provide high availability in case of regional failure.
 
 locals {
-  web_primary_bucket   = join("-", [var.app_name, terraform.workspace, var.web_primary_bucket])
-  web_secondary_bucket = join("-", [var.app_name, terraform.workspace, var.web_secondary_bucket])
-  web_log_bucket       = join("-", [var.app_name, terraform.workspace, var.web_log_bucket])
-  app_domain           = terraform.workspace == "main" ? var.root_domain : join(".", [terraform.workspace, var.root_domain])
+  # zbmowrey-com-develop-web-primary
+  web_primary_bucket   = join("-", [var.app_name, var.environment, var.web_primary_bucket])
+  web_secondary_bucket = join("-", [var.app_name, var.environment, var.web_secondary_bucket])
+  web_log_bucket       = join("-", [var.app_name, var.environment, var.web_log_bucket])
+  app_domain           = var.environment == "main" ? var.root_domain : join(".", [var.environment, var.root_domain])
   api_domain           = "api.${local.app_domain}"
   acm_validations      = []
   default_tags         = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = terraform.workspace
+      Environment = var.environment
       Terraform   = true
   }
 }
@@ -158,7 +159,7 @@ resource "aws_cloudfront_distribution" "web-dist" {
     ssl_support_method             = "sni-only"
   }
   tags = {
-    Description = "${var.app_name}-${terraform.workspace}"
+    Description = "${var.app_name}-${var.environment}"
   }
 }
 
@@ -171,7 +172,7 @@ resource "aws_acm_certificate" "web-cert" {
     create_before_destroy = true
   }
   tags = {
-    Name = "${var.app_name} - ${terraform.workspace}"
+    Name = "${var.app_name} - ${var.environment}"
   }
 }
 

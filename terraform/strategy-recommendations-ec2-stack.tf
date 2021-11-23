@@ -21,7 +21,7 @@
 #  enable_vpn_gateway = false
 #
 #  tags = {
-#    Environment = terraform.workspace
+#    Environment = var.environment
 #    CostCenter = var.app_name
 #  }
 #}
@@ -39,7 +39,7 @@
 #
 #  ami                    = "ami-07238f13cc6b12f3b"
 #  instance_type          = "t3.medium"
-#  key_name               = terraform.workspace
+#  key_name               = var.environment
 #  monitoring             = true
 #  vpc_security_group_ids = [aws_security_group.allow_tls.id]
 #  subnet_id              = element(module.vpc.private_subnets, 0)

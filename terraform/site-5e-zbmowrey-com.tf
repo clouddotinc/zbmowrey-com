@@ -3,8 +3,8 @@
 locals {
   base_domain = join(".", ["5e", local.app_domain])
   app_name = "5e-zbmowrey-com"
-  web_bucket  = "${local.app_name}-${terraform.workspace}-web-primary"
-  origin_id   = "${terraform.workspace}-5e-origin"
+  web_bucket  = "${local.app_name}-${var.environment}-web-primary"
+  origin_id   = "${var.environment}-5e-origin"
 }
 
 resource "aws_s3_bucket" "five-e-tools" {
@@ -156,7 +156,7 @@ resource "aws_cloudfront_distribution" "five-e-tools" {
     ssl_support_method             = "sni-only"
   }
   tags = {
-    Description = "${local.app_name}-${terraform.workspace}"
+    Description = "${local.app_name}-${var.environment}"
     CostCenter = local.app_name
   }
 }

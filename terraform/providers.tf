@@ -9,12 +9,12 @@ terraform {
 
 provider "aws" {
   region  = "us-east-1"
-  profile = terraform.workspace
+  profile = var.environment
   default_tags {
     tags = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = terraform.workspace
+      Environment = var.environment
       Terraform   = true
     }
   }
@@ -23,12 +23,12 @@ provider "aws" {
 provider "aws" {
   alias   = "primary"
   region  = var.primary_region
-  profile = terraform.workspace
+  profile = var.environment
   default_tags {
     tags = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = terraform.workspace
+      Environment = var.environment
       Terraform   = true
     }
   }
@@ -37,12 +37,12 @@ provider "aws" {
 provider "aws" {
   alias   = "secondary"
   region  = var.secondary_region
-  profile = terraform.workspace
+  profile = var.environment
   default_tags {
     tags = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = terraform.workspace
+      Environment = var.environment
       Terraform   = true
     }
   }

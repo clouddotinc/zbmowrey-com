@@ -16,7 +16,7 @@
 #  enable_vpn_gateway = false
 #
 #  tags = {
-#    Environment = terraform.workspace
+#    Environment = var.environment
 #    CostCenter = var.app_name
 #  }
 #}
