@@ -4,7 +4,7 @@
 resource "aws_dynamodb_table" "global-store" {
   provider = aws.secondary
   hash_key = "k"
-  name     = "zbmowrey-global-store-${var.environment}"
+  name     = "GlobalStore"
   attribute {
     name = "k"
     type = "S"
