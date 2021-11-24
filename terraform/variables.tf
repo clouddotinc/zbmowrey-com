@@ -73,3 +73,8 @@ variable "create_api_domain_name" {
   type    = bool
   default = true
 }
+# For invalidations (not presently in use).
+variable "cf_distribution" {
+  type = string
+  default = ""
+}
