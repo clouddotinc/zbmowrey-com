@@ -1,11 +1,32 @@
 # zbmowrey-com
 
-This is the code behind [my website](https://zbmowrey.com). It's a Vue 2 SPA hosted as HTML,
-CSS, and Javascript on s3 behind CloudFront; this keeps my hosting costs near zero. Feel free
-to poke around in .github/workflows, where I showcase Github Actions for automated deployment
-and Terraform to build out infrastructure. 
+This is the code behind [my website](https://zbmowrey.com). 
 
 If you see something I could improve, please point it out. I'm always happy to learn something new!
+
+## The App
+
+This app is an HTML & Javascript static website:
+* Hosting: s3 (multi-region)
+* CDN: CloudFront (with failover)
+* Form Handling: API Gateway & Lambda 
+
+## Deployment Pipeline
+
+NOTE: The following are targets for v1.0. At the moment, Code Deployment and Infrastructure Deployment are complete.
+Lambda Deployment is a work in progress. 
+
+Pushes to develop, staging, or main branches will trigger the following (if needed): 
+* Infrastructure Deployment: Terraform Cloud
+  * Condition: changes detected in the terraform/ folder.
+ 
+ 
+* Lambda Deployment: Serverless Framework
+  * Condition: changes detected in the serverless/ folder.
+
+
+* Code Deployment: Github Actions
+  * Condition: changes detected outside serverless/ and terraform/ folders.
 
 ## Project setup
 ```
@@ -32,9 +53,6 @@ Add repository secrets:
     AWS_SECRET_MAIN
     CF_DISTRIBUTION_MAIN (initially empty. Add the distribution ID after initial creation)
 
-    Your token for tf cloud. Be sure your workspace is using LOCAL deployment (settings > general).
-    TERRAFORM_CLOUD_TOKEN
-
 ```
 
 ### Compiles and hot-reloads for development
@@ -46,26 +64,6 @@ yarn serve
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Deployment
-
-Pushes to main, develop (optional), or staging (optional) will automatically
-trigger Github Actions (see the Actions tab in your repository) which will 
-build the application and deploy to s3. 
-
-You MUST customize the following files: 
-    .github/workflows/terraform/env/*.tfvars
-    .github/workflows/terraform/terraform.tfvars
-
-### Examples
-
-This project also contains working examples of VPC Creation and Python Lambda deployment.
-See the vpc.tf file and the lambda-web-mail.tf for examples (commented out for now). 
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
