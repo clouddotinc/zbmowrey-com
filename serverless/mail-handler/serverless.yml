@@ -1,12 +1,14 @@
 org: zbmowrey
-app: mail-handler
-service: mail-handler
+app: zbmowrey-com
+service: zbmowrey-mail-handler
 frameworkVersion: '2 || 3'
 
 provider:
   name: aws
   runtime: python3.8
+  region: us-east-2
   lambdaHashingVersion: '20201221'
+  stackName: ${opt:stage, 'dev'}-zbmowrey-mail-handler
 
 functions:
   hello:
