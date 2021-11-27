@@ -17,3 +17,6 @@ functions:
       - httpApi:
           path: /
           method: get
+
+resources:
+  Description: "Github: zbmowrey/zbmowrey-com/serverless/mail-handler"
