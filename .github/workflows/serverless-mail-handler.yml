@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - '**serverless/**'
+      - '**serverless/mail-handler/**'
     branches:
       - develop
       - staging
@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: serverless
+        working-directory: serverless/mail-handler
 
     steps:
       - uses: actions/checkout@v2
