@@ -4,9 +4,9 @@ on:
       - develop
       - staging
       - main
-    paths-ignore:
-      - '**serverless/**'
-      - '**terraform/**'
+    paths:
+      - 'src/**'
+      - 'public/**'
 
 jobs:
   deploy:

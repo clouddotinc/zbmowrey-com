@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - '**serverless/mail-handler/**'
+      - 'serverless/mail-handler/**'
     branches:
       - develop
       - staging
