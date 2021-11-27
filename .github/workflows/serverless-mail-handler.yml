@@ -19,7 +19,6 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./serverless/mail-handler/
 
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +39,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: serverless deploy
-        uses: serverless/github-action@master
-        with:
-          args: -c "serverless deploy --config=serverless/mail-handler/serverless.yml --stage=${{ steps.branch.outputs.lowercase }} --verbose"
+      - run: npm i -g serverless
+      - run: node ../../node_modules/serverless/bin/serverless.js deploy --stage ${{ steps.branch.outputs.lowercase }} --verbose
+        working-directory: ./serverless/mail-handler
