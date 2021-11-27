@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: serverless/mail-handler
+        working-directory: ./serverless/mail-handler/
 
     steps:
       - uses: actions/checkout@v2
