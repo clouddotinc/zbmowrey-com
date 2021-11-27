@@ -9,6 +9,10 @@ provider:
   region: us-east-2
   lambdaHashingVersion: '20201221'
   stackName: ${opt:stage, 'dev'}-zbmowrey-mail-handler
+  stackTags:
+    CostCenter: zbmowrey
+    Environment: ${opt:stage,'dev'}
+    Source: "https://github.com/zbmowrey/zbmowrey-com/tree/develop/serverless/mail-handler"
 
 functions:
   hello:
