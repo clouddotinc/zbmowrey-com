@@ -1,7 +1,9 @@
 on:
   push:
     branches:
-      - temporary_bypass
+      - develop
+      - staging
+      - main
 jobs:
   deploy:
     timeout-minutes: 30

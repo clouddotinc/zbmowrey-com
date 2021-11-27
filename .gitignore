@@ -24,3 +24,4 @@ pnpm-debug.log*
 /terraform/.terraform/
 /terraform/builds/
 .terraform
+/terraform/terraform.tfvars
