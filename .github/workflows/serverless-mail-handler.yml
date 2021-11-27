@@ -40,6 +40,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: npm i -g serverless
+      - run: npm i -g serverless-plugin-resource-tagging
       - run: serverless --version
       - run: serverless deploy --stage ${{ steps.branch.outputs.lowercase }} --verbose
         working-directory: ./serverless/mail-handler
