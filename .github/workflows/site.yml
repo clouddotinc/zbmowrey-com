@@ -4,6 +4,10 @@ on:
       - develop
       - staging
       - main
+    paths-ignore:
+      - '**serverless/**'
+      - '**terraform/**'
+
 jobs:
   deploy:
     timeout-minutes: 30
