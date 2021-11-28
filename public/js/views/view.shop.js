@@ -1,3 +1,8 @@
+/*
+Name: 			View - Shop
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version:	9.0.0
+*/
 
 (function($) {
 
