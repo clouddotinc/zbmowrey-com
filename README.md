@@ -30,7 +30,7 @@ Github Actions is triggered by changes in the src/, public/, or serverless/ fold
  
 ### Notes on Timing
 
-As we rely on parallel deployment of site, lambda, and infrastructure changes, it is advisable that users consider the implications of rolling multiple changes
+As we rely on parallel deployment of site, lambda, and infrastructure changes, users should consider the implications of combining multiple changes
 into a single push. For example, a change which relies on both site and lambda updates might see the site updated before the lambda deployment completes. This
 would result in a window where increased error rates are encountered. The same is true if any code change relies on an infrastructure (terraform) update.
 
