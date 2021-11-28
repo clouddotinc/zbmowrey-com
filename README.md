@@ -12,13 +12,22 @@ This architecture gives me a hosting cost so close to zero it might as well be. 
 
 ## Deployment Pipeline
 
-An integration with Terraform Cloud is configured to watch the **terraform/** folder for changes and automatically deploy infrastructure as specified.
+### Guard Rails
 
-Github Actions are configured: 
+All deployments are constrained to the develop, staging, or main environments, with branches named accordingly.
 
-* Site - Changes in the **src/** or **public/** folders will trigger a rebuild and deploy to s3, followed by CloudFront invalidation.
-* Lambda - Changes in the **serverless/** folder will trigger deployment using Serverless Framework. 
+### Terraform Cloud
 
+Terraform Cloud is integrated with this repository and will automatically deploy infrastructure when code changes in the terraform/ folder. 
+
+### Github Actions
+
+Github Actions is triggered by changes in the src/, public/, or serverless/ folders:
+* Changes in the src/ or public/ folders will trigger a process which builds, syncs to s3, and invalidates the CDN distribution.
+* Changes in sub-folders of serverless/ will trigger a Serverless Framework deployment.
+  * Each must be defined in .github/workflows/
+  * See .github/workflows/serverless-mail-handler.yml for an example.
+ 
 ### Notes on Timing
 
 As we rely on parallel deployment of site, lambda, and infrastructure changes, it is advisable that users consider the implications of rolling multiple changes
