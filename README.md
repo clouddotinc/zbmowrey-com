@@ -1,32 +1,31 @@
 # zbmowrey-com
 
-This is the code behind [my website](https://zbmowrey.com). 
-
-If you see something I could improve, please point it out. I'm always happy to learn something new!
+This is the code behind [my website](https://zbmowrey.com). If you see something I could improve, please point it out. I'm always happy to learn something new!
 
 ## The App
 
-This app is an HTML & Javascript static website:
-* Hosting: s3 (multi-region)
-* CDN: CloudFront (with failover)
-* Form Handling: API Gateway & Lambda 
+The app is a static HTML website hosted in S3 and served by CloudFront. A multi-region design improves the SLA of my site from 99.9% (~9 hours/year downtime) to 99.99% (~52 minutes/year downtime). 
+
+Form handling, when necessary, will be performed using AWS Lambda & API Gateway, which both have generous permanently-free tiers.
+
+This architecture gives me a hosting cost so close to zero it might as well be. Including route53 zone costs, a single domain web app with develop, staging, and production environments will cost me well under $2.00 USD unless it gets wildly popular for some reason. 
 
 ## Deployment Pipeline
 
-NOTE: The following are targets for v1.0. At the moment, Code Deployment and Infrastructure Deployment are complete.
-Lambda Deployment is a work in progress. 
+An integration with Terraform Cloud is configured to watch the **terraform/** folder for changes and automatically deploy infrastructure as specified.
 
-Pushes to develop, staging, or main branches will trigger the following (if needed): 
-* Infrastructure Deployment: Terraform Cloud
-  * Condition: changes detected in the terraform/ folder.
- 
- 
-* Lambda Deployment: Serverless Framework
-  * Condition: changes detected in the serverless/ folder.
+Github Actions are configured: 
 
+* Site - Changes in the **src/** or **public/** folders will trigger a rebuild and deploy to s3, followed by CloudFront invalidation.
+* Lambda - Changes in the **serverless/** folder will trigger deployment using Serverless Framework. 
 
-* Code Deployment: Github Actions
-  * Condition: changes detected outside serverless/ and terraform/ folders.
+### Notes on Timing
+
+As we rely on parallel deployment of site, lambda, and infrastructure changes, it is advisable that users consider the implications of rolling multiple changes
+into a single push. For example, a change which relies on both site and lambda updates might see the site updated before the lambda deployment completes. This
+would result in a window where increased error rates are encountered. The same is true if any code change relies on an infrastructure (terraform) update.
+
+For the moment, I'm keeping site, lambda, and infrastructure packaged in a single repo to minimize my maintenance window and the amount of manual work I need to do when coordinating a release (creating 3 separate PRs, merging, and monitoring vs creating a single PR and monitoring). This may need to change if/when the complexity of the application grows. 
 
 ## Project setup
 ```
