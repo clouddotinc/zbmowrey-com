@@ -187,7 +187,7 @@ resource "aws_lambda_permission" "notification-test" {
 }
 
 resource "aws_s3_bucket" "notification-test" {
-  bucket = "your-bucket-name"
+  bucket = "zbm-notification-test"
 }
 
 resource "aws_s3_bucket_notification" "notification-test" {
