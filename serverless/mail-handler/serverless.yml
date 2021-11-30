@@ -12,7 +12,9 @@ provider:
   stackTags:
     CostCenter: zbmowrey
     Environment: ${opt:stage,'dev'}
+    Owner: zbmowrey
     Source: "https://github.com/zbmowrey/zbmowrey-com/tree/develop/serverless/mail-handler"
+    Serverless: true
 
 functions:
   hello:
