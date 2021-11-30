@@ -5,6 +5,7 @@ import About from "../components/About.vue";
 import Blog from "../components/Blog.vue";
 import Resume from "../components/Resume.vue";
 import NotFound from "../components/NotFound.vue";
+import DevOps from "../components/DevOps";
 
 Vue.use(VueRouter);
 
@@ -14,7 +15,11 @@ const routes = [
     name: "About",
     component: About,
   },
-
+  {
+    path: "/devops",
+    name: "DevOps",
+    component: DevOps,
+  },
   {
     path: "/blog",
     name: "Blog",
