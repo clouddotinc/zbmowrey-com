@@ -60,13 +60,17 @@
       <div class="overflow-hidden" id="deployment-infra">
         <h4 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Deployment: Infrastructure</h4>
       </div>
-      <p class="pb-3">
+      <p>
         I use Terraform to define my Infrastructure-as-Code and I use Terraform Cloud to deploy infrastructure changes
         from key branches of my repositories: develop, staging, and main. Terraform Cloud is configured and managed by
         the <a href="https://github.com/zbmowrey/terraform-cloud" target="_blank">terraform-cloud</a> repository. This
         keeps all of my organizations, workspaces, settings, and variables under version control.
       </p>
-          <div class="overflow-hidden" id="cloud-governance">
+      <p class="pb-3">
+        As with Serverless, I add tags to all Terraform-created resources using a provider-level tag set. This adds the
+        relevant tags to every resource that supports tagging. 
+      </p>
+      <div class="overflow-hidden" id="cloud-governance">
         <h4 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Cloud Governance</h4>
       </div>
       <p class="pb-3">
