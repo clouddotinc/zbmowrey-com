@@ -15,6 +15,7 @@ provider "aws" {
       CostCenter  = var.app_name
       Owner       = var.owner_name
       Environment = var.environment
+      Source      = "https://github.com/zbmowrey/zbmowrey-com/tree/develop/terraform"
       Terraform   = true
     }
   }
