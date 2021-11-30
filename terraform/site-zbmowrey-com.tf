@@ -176,3 +176,29 @@ resource "aws_acm_certificate" "web-cert" {
   }
 }
 
+#############################################################################################
+
+resource "aws_lambda_permission" "notification-test" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = "arn:aws:lambda:us-east-1:247216695226:function:insults-bot-develop"
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.notification-test.arn
+}
+
+resource "aws_s3_bucket" "notification-test" {
+  bucket = "your-bucket-name"
+}
+
+resource "aws_s3_bucket_notification" "notification-test" {
+  bucket = aws_s3_bucket.notification-test.id
+
+  lambda_function {
+    lambda_function_arn = "arn:aws:lambda:us-east-1:247216695226:function:insults-bot-develop"
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = "AWSLogs/"
+    filter_suffix       = ".log"
+  }
+
+  depends_on = [aws_lambda_permission.notification-test]
+}
