@@ -1,4 +1,3 @@
-
 # We're going to create a multi-bucket static site in separate regions
 # to provide high availability in case of regional failure.
 
@@ -11,12 +10,18 @@ locals {
   api_domain           = "api.${local.app_domain}"
   acm_validations      = []
   default_tags         = {
-      CostCenter  = var.app_name
-      Owner       = var.owner_name
-      Environment = var.environment
-      Terraform   = true
+    CostCenter  = var.app_name
+    Owner       = var.owner_name
+    Environment = var.environment
+    Terraform   = true
   }
 }
+
+resource "aws_kms_key" "zbmowrey-kms" {
+  description             = "Used to encrypt s3 objects"
+  deletion_window_in_days = 10
+}
+
 resource "aws_s3_bucket" "web-primary" {
   provider = aws.primary
   bucket   = local.web_primary_bucket
@@ -25,15 +30,34 @@ resource "aws_s3_bucket" "web-primary" {
     index_document = "index.html"
     error_document = "index.html"
   }
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid = "PublicRead"
-      Effect = "Allow"
-      Principal = "*"
-      Action = ["s3:GetObject", "s3:GetObjectVersion"]
-      Resource = ["arn:aws:s3:::${local.web_primary_bucket}/*"]
-    }]
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.zbmowrey-kms.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+  versioning {
+    enabled = true
+  }
+  lifecycle_rule {
+    noncurrent_version_expiration {
+      days = 7
+    }
+    enabled = true
+  }
+  policy   = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicRead"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
+        Resource  = ["arn:aws:s3:::${local.web_primary_bucket}/*"]
+      }
+    ]
   })
 }
 
@@ -47,19 +71,63 @@ resource "aws_s3_bucket" "web-secondary" {
     index_document = "index.html"
     error_document = "index.html"
   }
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid = "PublicRead"
-      Effect = "Allow"
-      Principal = "*"
-      Action = ["s3:GetObject", "s3:GetObjectVersion"]
-      Resource = ["arn:aws:s3:::${local.web_secondary_bucket}/*"]
-    }]
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.zbmowrey-kms.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+  versioning {
+    enabled = true
+  }
+  lifecycle_rule {
+    noncurrent_version_expiration {
+      days = 7
+    }
+    enabled = true
+  }
+  policy   = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "OAI-Read"
+        Effect    = "Allow"
+        Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
+        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
+        Resource  = ["arn:aws:s3:::${local.web_secondary_bucket}/*"]
+      }
+    ]
   })
 }
 
 resource "aws_s3_bucket" "web-logs" {
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = ""
+      }
+    }
+  }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.zbmowrey-kms.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+  versioning {
+    enabled = true
+  }
+  lifecycle_rule {
+    noncurrent_version_expiration {
+      days = 7
+    }
+    enabled = true
+  }
+
   provider = aws.secondary # logs should be written to us-east-1
   bucket   = local.web_log_bucket
   lifecycle_rule {
@@ -90,15 +158,15 @@ resource "aws_cloudfront_distribution" "web-dist" {
   aliases = [local.app_domain, join(".", ["www", local.app_domain])]
 
   custom_error_response {
-    error_code = 404
-    response_code = 200
-    response_page_path = "/index.html"
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
     error_caching_min_ttl = 30
   }
   custom_error_response {
-    error_code = 403
-    response_code = 200
-    response_page_path = "/index.html"
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/index.html"
     error_caching_min_ttl = 30
   }
 
@@ -113,9 +181,9 @@ resource "aws_cloudfront_distribution" "web-dist" {
         forward = "all"
       }
     }
-    min_ttl     = 0
-    default_ttl = 3600
-    max_ttl     = 86400
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
   }
   origin_group {
     origin_id = "groupS3"
@@ -171,7 +239,7 @@ resource "aws_acm_certificate" "web-cert" {
   lifecycle {
     create_before_destroy = true
   }
-  tags = {
+  tags                      = {
     Name = "${var.app_name} - ${var.environment}"
   }
 }
