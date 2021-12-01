@@ -90,15 +90,15 @@ resource "aws_s3_bucket" "web-secondary" {
     }
     enabled = true
   }
-  policy   = jsonencode({
+policy   = jsonencode({
     Version   = "2012-10-17"
     Statement = [
       {
-        Sid       = "OAIRead"
+        Sid       = "PublicRead"
         Effect    = "Allow"
         Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
-        Resource  = ["arn:aws:s3:::${local.web_secondary_bucket}/*"]
+        Resource  = ["arn:aws:s3:::${local.web_primary_bucket}/*"]
       }
     ]
   })
