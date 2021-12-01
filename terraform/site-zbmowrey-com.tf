@@ -25,7 +25,6 @@ resource "aws_kms_key" "zbmowrey-kms" {
 resource "aws_s3_bucket" "web-primary" {
   provider = aws.primary
   bucket   = local.web_primary_bucket
-  acl      = "public-read"
   website {
     index_document = "index.html"
     error_document = "index.html"
@@ -67,7 +66,6 @@ resource "aws_s3_bucket" "web-primary" {
 resource "aws_s3_bucket" "web-secondary" {
   provider = aws.secondary
   bucket   = local.web_secondary_bucket
-  acl      = "public-read"
   website {
     index_document = "index.html"
     error_document = "index.html"
