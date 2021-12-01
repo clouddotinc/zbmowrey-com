@@ -53,7 +53,7 @@ resource "aws_s3_bucket" "web-primary" {
       {
         Sid       = "PublicRead"
         Effect    = "Allow"
-        Principal = "*"
+        Principal = aws_cloudfront_origin_access_identity.web-oai.iam_arn
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
         Resource  = ["arn:aws:s3:::${local.web_primary_bucket}/*"]
       }
@@ -94,7 +94,7 @@ resource "aws_s3_bucket" "web-secondary" {
       {
         Sid       = "OAI-Read"
         Effect    = "Allow"
-        Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
+        Principal = aws_cloudfront_origin_access_identity.web-oai.iam_arn
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
         Resource  = ["arn:aws:s3:::${local.web_secondary_bucket}/*"]
       }
@@ -114,12 +114,6 @@ resource "aws_s3_bucket" "web-logs" {
   versioning {
     enabled = true
   }
-  lifecycle_rule {
-    noncurrent_version_expiration {
-      days = 7
-    }
-    enabled = true
-  }
 
   provider = aws.secondary # logs should be written to us-east-1
   bucket   = local.web_log_bucket
@@ -129,6 +123,9 @@ resource "aws_s3_bucket" "web-logs" {
     transition {
       days          = 30
       storage_class = "STANDARD_IA"
+    }
+    noncurrent_version_expiration {
+      days = 7
     }
     expiration {
       days = 60
