@@ -30,23 +30,54 @@
         version controlled are secrets/credentials. For those, there is unfortunately no good solution except to trust
         that Github and/or Terraform will treat my secrets with utmost care.
       </p>
-            <div class="overflow-hidden">
-        <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Proper handling of secrets</h5>
+      <div class="overflow-hidden">
+        <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Best Practices for Secrets Management</h5>
       </div>
       <p>
-        If I were an enterprise, I'd subscribe to Terraform Cloud Enterprise and self-host TCE and Gitlab, using Vault
-        for secrets management. Sadly, I do not have an enterprise budget. Moving forward, my plan is to implement some
-        form of credential rotation and use the Github, Terraform, and Serverless APIs to update the AWS credentials
-        frequently.
+        My current stack relies on Github, HashiCorp, and Serverless.com to treat my secrets with utmost care. One of my
+        highest priorities is to begin paring this down to just Github or Gitlab. I'll achieve this by enabling local
+        deployment in my Terraform workspaces, and configuring a Github Action to set credentials appropriately and run
+        the deployment in a Github Actions container. Serverless.com is already configured for this, but I will need to
+        pull my AWS tokens from Serverless and pass them as a configuration item during deployment.
       </p>
-            <div class="overflow-hidden">
+      <p>
+        An alternative for personal use that I'm considering is centralizing all secrets at Github and using local
+        deployment strategies rather than using Terraform Cloud or Serverless stage-level providers. This would mean
+        all secrets are stored purely in Github, which minimizes my surface area somewhat.
+      </p>
+      <p>
+        If I were an enterprise, I'd run my own high-availability instance(s) of Gitlab and Terraform Enterprise, set up
+        IAM roles for their runners, and use Secrets Manager or HashiCorp Vault to maintain the secrets. My runners
+        would make API calls to fetch secrets at time of deployment. This would allow me to automate credentials rotation for
+        most services by updating a credential in the service, then in the secrets manager of choice.
+      </p>
+      <div class="overflow-hidden">
         <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Partition Code by Cost Center</h5>
       </div>
-      <p class="pb-5" id="deployment-site">
+      <p id="deployment-site">
         For each CostCenter in my cloud infrastructure, I create a new Github Organization so that code is completely
         partitioned by client/project. This imposes additional complexity when configuring VCS integrations, but has the
         benefit of limiting any potential breach to just one Organization.
       </p>
+      <div class="overflow-hidden" id="mono-repo">
+        <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Why a mono-repo?</h5>
+      </div>
+
+      <p>
+        The monorepo design I've selected for my applications is a good choice for small projects without a lot of
+        moving parts. I've chosen to optimize for developer comfort (ie, automate the toil) by rolling the various
+        deployments into a single workflow.
+      </p>
+      <div class="overflow-hidden">
+        <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Limitations & Cautions</h5>
+      </div>
+      <p class="pb-5" id="cloud-governance">
+        I recognize that there are some potential issues with this practice if the apps in question gain complexity
+        and/or my maintenance windows shrink: namely, I may need to cherry-pick commits to control change timing or
+        implement versioned endpoints to ensure continuity of service.
+      </p>
+
+
       <div class="overflow-hidden">
         <h4 class="text-color-dark font-weight-bold mb-2 pb-3 pt-0 mt-0">Deployment: Site Code</h4>
       </div>
@@ -75,27 +106,12 @@
         <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Overview</h5>
       </div>
       <p>
-        I use Terraform to define my Infrastructure-as-Code and I use <a href="https://www.terraform.io/cloud" target="_blank">
+        I use Terraform to define my Infrastructure-as-Code and I use <a href="https://www.terraform.io/cloud"
+                                                                         target="_blank">
         Terraform Cloud</a> to deploy infrastructure changes from key branches of my repositories: develop, staging, and
         main. Terraform Cloud is configured and managed by my <a href="https://github.com/zbmowrey/terraform-cloud"
                                                                  target="_blank">terraform-cloud</a>
         repository. This keeps all of my organizations, workspaces, settings, and variables under version control.
-      </p>
-      <div class="overflow-hidden">
-        <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Why use a monorepo design?</h5>
-      </div>
-      <p>
-        The monorepo design I've selected for my applications is a good choice for small projects without a lot of moving
-        parts. I've chosen to optimize for developer comfort (ie, automate the toil) by rolling the various deployments
-        into a single workflow.
-      </p>
-      <div class="overflow-hidden">
-        <h5 class="text-color-dark font-weight-bold mb-2 pt-0 mt-0">Limitations & Cautions</h5>
-      </div>
-      <p class="pb-5" id="cloud-governance">
-        I recognize that there are some potential issues with this practice if the apps in question gain complexity
-        and/or my maintenance windows shrink: namely, I may need to cherry-pick commits to control change timing or
-        implement versioned endpoints to ensure continuity of service.
       </p>
       <div class="overflow-hidden">
         <h4 class="text-color-dark font-weight-bold mb-2 pb-3 pt-0 mt-0">Cloud Governance</h4>
@@ -111,7 +127,8 @@
       <p>
         Required tags on all resources are CostCenter, Environment, Owner, and Source. Source provides a link directly
         to the Github folder for a given stack, allowing a developer or engineer to quickly navigate to the code which
-        creates a given resource. For an example, see the <a href="https://github.com/zbmowrey/zbmowrey-com/tree/develop/terraform">
+        creates a given resource. For an example, see the <a
+          href="https://github.com/zbmowrey/zbmowrey-com/tree/develop/terraform">
         zbmowrey.com Terraform Source</a>.
       </p>
       <p>
@@ -119,7 +136,8 @@
         This tagging strategy allows me to generate granular billing details to see where my costs are allocated and to
         detect anomalies quickly. Tag enforcement is delivered using a combination of Terraform
         <a href="https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider" target="_blank">provider-level
-          tags</a> and the <a href="https://www.serverless.com/plugins/serverless-plugin-resource-tagging" target="_blank">
+          tags</a> and the <a href="https://www.serverless.com/plugins/serverless-plugin-resource-tagging"
+                              target="_blank">
         serverless-plugin-resource-tagging</a> addon for Serverless Framework.
       </p>
     </div>
