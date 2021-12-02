@@ -53,7 +53,6 @@ resource "aws_s3_bucket" "web-primary" {
     Version   = "2012-10-17"
     Statement = [
       {
-        Sid       = "OAIRead"
         Effect    = "Allow"
         Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
@@ -94,7 +93,6 @@ resource "aws_s3_bucket" "web-secondary" {
     Version   = "2012-10-17"
     Statement = [
       {
-        Sid       = "OAIRead"
         Effect    = "Allow"
         Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
@@ -214,6 +212,7 @@ resource "aws_cloudfront_distribution" "web-dist" {
   }
 
   viewer_certificate {
+    cloudfront_default_certificate = false
     acm_certificate_arn            = aws_acm_certificate.web-cert.arn
     ssl_support_method             = "sni-only"
   }
