@@ -107,6 +107,7 @@ resource "aws_s3_bucket" "web-secondary" {
 }
 
 resource "aws_s3_bucket" "web-logs" {
+  acl = "private"
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
