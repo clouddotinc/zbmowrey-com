@@ -19,8 +19,8 @@ locals {
 
 resource "aws_kms_key" "zbmowrey-kms" {
   description             = "Used to encrypt s3 objects"
-  multi_region            = true
   enable_key_rotation     = true
+  multi_region            = true
   deletion_window_in_days = 10
 }
 
