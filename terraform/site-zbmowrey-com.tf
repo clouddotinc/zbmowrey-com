@@ -51,7 +51,7 @@ resource "aws_s3_bucket" "web-primary" {
   }
   policy = <<EOF
 {
-  "Version": "2012-10-17"
+  "Version": "2012-10-17",
   "Statement": [
     {
       "Sid": "PublicRead",
@@ -61,7 +61,7 @@ resource "aws_s3_bucket" "web-primary" {
       "Resource": ["arn:aws:s3:::${local.web_primary_bucket}/*"]
     }
   ]
-})
+}
 EOF
 }
 
