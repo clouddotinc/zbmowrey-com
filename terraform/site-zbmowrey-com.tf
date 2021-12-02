@@ -43,25 +43,24 @@ resource "aws_s3_bucket" "web-primary" {
     enabled = true
   }
   lifecycle_rule {
-    id      = "${var.environment}-web-primary-lifecycle"
+    id      = "${var.app_name}-${var.environment}-web-primary-lifecycle"
     noncurrent_version_expiration {
       days = 7
     }
     enabled = true
   }
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": ["${aws_cloudfront_origin_access_identity.web-oai.iam_arn}"],
-      "Action": ["s3:GetObject", "s3:GetObjectVersion"],
-      "Resource": ["arn:aws:s3:::${local.web_primary_bucket}/*"]
-    }
-  ]
-}
-EOF
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid = "OAIRead"
+      Effect = "Allow"
+      Principal = {
+        AWS = aws_cloudfront_origin_access_identity.web-oai.iam_arn
+      }
+      Action = ["s3:GetObject", "s3:GetObjectVersion"]
+      Resource = "${aws_s3_bucket.web-primary.arn}/*"
+    }]
+  })
 }
 
 # Secondary is us-east-1 (Virginia) - this is our failover origin
@@ -97,15 +96,18 @@ resource "aws_s3_bucket" "web-secondary" {
       {
         Sid       = "PublicRead"
         Effect    = "Allow"
-        Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
+        Principal = {
+          AWS = aws_cloudfront_origin_access_identity.web-oai.iam_arn
+        }
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
-        Resource  = ["arn:aws:s3:::${local.web_secondary_bucket}/*"]
+        Resource  = ["${aws_s3_bucket.web-secondary.arn}/*"]
       }
     ]
   })
 }
 
 resource "aws_s3_bucket" "web-logs" {
+  acl = "private"
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
