@@ -53,6 +53,7 @@ resource "aws_s3_bucket" "web-primary" {
     Version   = "2012-10-17"
     Statement = [
       {
+        Sid       = "PublicRead"
         Effect    = "Allow"
         Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
@@ -93,6 +94,7 @@ resource "aws_s3_bucket" "web-secondary" {
     Version   = "2012-10-17"
     Statement = [
       {
+        Sid       = "PublicRead"
         Effect    = "Allow"
         Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
