@@ -49,18 +49,20 @@ resource "aws_s3_bucket" "web-primary" {
     }
     enabled = true
   }
-  policy   = jsonencode({
-    Version   = "2012-10-17"
-    Statement = [
-      {
-        Sid       = "PublicRead"
-        Effect    = "Allow"
-        Principal = [aws_cloudfront_origin_access_identity.web-oai.iam_arn]
-        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
-        Resource  = ["arn:aws:s3:::${local.web_primary_bucket}/*"]
-      }
-    ]
-  })
+  policy = <<EOF
+{
+  Version: "2012-10-17"
+  Statement: [
+    {
+      Sid: "PublicRead",
+      Effect: "Allow",
+      Principal: [${aws_cloudfront_origin_access_identity.web-oai.iam_arn}],
+      Action: ["s3:GetObject", "s3:GetObjectVersion"],
+      Resource: ["arn:aws:s3:::${local.web_primary_bucket}/*"]
+    }
+  ]
+})
+EOF
 }
 
 # Secondary is us-east-1 (Virginia) - this is our failover origin
