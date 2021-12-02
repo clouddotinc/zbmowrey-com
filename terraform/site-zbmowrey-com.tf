@@ -58,7 +58,7 @@ resource "aws_s3_bucket" "web-primary" {
         AWS = aws_cloudfront_origin_access_identity.web-oai.iam_arn
       }
       Action = ["s3:GetObject", "s3:GetObjectVersion"]
-      Resource = "${aws_s3_bucket.web-primary.arn}/*"
+      Resource = "arn:aws:s3:::${local.web_primary_bucket}/*"
     }]
   })
 }
@@ -100,14 +100,13 @@ resource "aws_s3_bucket" "web-secondary" {
           AWS = aws_cloudfront_origin_access_identity.web-oai.iam_arn
         }
         Action    = ["s3:GetObject", "s3:GetObjectVersion"]
-        Resource  = ["${aws_s3_bucket.web-secondary.arn}/*"]
+        Resource  = ["arn:aws:s3:::${local.web_secondary_bucket}/*"]
       }
     ]
   })
 }
 
 resource "aws_s3_bucket" "web-logs" {
-  acl = "private"
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
