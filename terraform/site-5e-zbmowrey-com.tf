@@ -10,35 +10,39 @@ locals {
 resource "aws_s3_bucket" "five-e-tools" {
   provider = aws.secondary
   bucket   = local.web_bucket
-  acl      = "public-read"
   website {
     index_document = "index.html"
     error_document = "index.html"
   }
-  tags = {
-    CostCenter = local.app_name
-  }
-  lifecycle_rule {
-    id      = "ia-after-30"
-    enabled = true
-
-    transition {
-      days          = 30
-      storage_class = "STANDARD_IA"
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.zbmowrey-kms.arn
+        sse_algorithm     = "aws:kms"
+      }
     }
   }
-
-  policy   = jsonencode({
-    Version   = "2012-10-17"
-    Statement = [
-      {
-        Sid       = "PublicRead"
-        Effect    = "Allow"
-        Principal = "*"
-        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
-        Resource  = ["arn:aws:s3:::${local.web_bucket}/*"]
+  versioning {
+    enabled = true
+  }
+  lifecycle_rule {
+    id      = "${var.app_name}-${var.environment}-web-primary-lifecycle"
+    noncurrent_version_expiration {
+      days = 7
+    }
+    enabled = true
+  }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid = "OAIRead"
+      Effect = "Allow"
+      Principal = {
+        AWS = aws_cloudfront_origin_access_identity.five-e-tools.iam_arn
       }
-    ]
+      Action = ["s3:GetObject", "s3:GetObjectVersion"]
+      Resource = "arn:aws:s3:::${local.web_bucket}/*"
+    }]
   })
 }
 

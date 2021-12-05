@@ -25,3 +25,5 @@ pnpm-debug.log*
 /terraform/builds/
 .terraform
 /terraform/terraform.tfvars
+
+kics-report/
