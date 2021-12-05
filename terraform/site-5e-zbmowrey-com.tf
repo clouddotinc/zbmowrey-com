@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "five-e-tools" {
   }
 
   server_side_encryption_configuration {
-    rule = {
+    rule {
       apply_server_side_encryption_by_default = {
         sse_algorithm = "AES256"
       }
