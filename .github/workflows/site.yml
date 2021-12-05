@@ -7,6 +7,7 @@ on:
     paths:
       - 'src/**'
       - 'public/**'
+      - 'yarn.lock'
 
 jobs:
   deploy:
