@@ -34,6 +34,13 @@ resource "aws_s3_bucket" "web-primary" {
   versioning {
     enabled = true
   }
+  server_side_encryption_configuration {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
   lifecycle_rule {
     id      = "${var.app_name}-${var.environment}-web-primary-lifecycle"
     noncurrent_version_expiration {
@@ -41,17 +48,19 @@ resource "aws_s3_bucket" "web-primary" {
     }
     enabled = true
   }
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid = "OAIRead"
-      Effect = "Allow"
-      Principal = {
-        AWS = aws_cloudfront_origin_access_identity.web-oai.iam_arn
+  policy   = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "OAIRead"
+        Effect    = "Allow"
+        Principal = {
+          AWS = aws_cloudfront_origin_access_identity.web-oai.iam_arn
+        }
+        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
+        Resource  = "arn:aws:s3:::${local.web_primary_bucket}/*"
       }
-      Action = ["s3:GetObject", "s3:GetObjectVersion"]
-      Resource = "arn:aws:s3:::${local.web_primary_bucket}/*"
-    }]
+    ]
   })
 }
 
@@ -73,6 +82,13 @@ resource "aws_s3_bucket" "web-secondary" {
       days = 7
     }
     enabled = true
+  }
+  server_side_encryption_configuration {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
   }
   policy   = jsonencode({
     Version   = "2012-10-17"

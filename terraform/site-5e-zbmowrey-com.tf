@@ -2,7 +2,7 @@
 
 locals {
   base_domain = join(".", ["5e", local.app_domain])
-  app_name = "5e-zbmowrey-com"
+  app_name    = "5e-zbmowrey-com"
   web_bucket  = "${local.app_name}-${var.environment}-web-primary"
   origin_id   = "${var.environment}-5e-origin"
 }
@@ -13,6 +13,14 @@ resource "aws_s3_bucket" "five-e-tools" {
   website {
     index_document = "index.html"
     error_document = "index.html"
+  }
+
+  server_side_encryption_configuration {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
   }
   versioning {
     enabled = true
@@ -25,16 +33,18 @@ resource "aws_s3_bucket" "five-e-tools" {
     enabled = true
   }
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid = "OAIRead"
-      Effect = "Allow"
-      Principal = {
-        AWS = aws_cloudfront_origin_access_identity.five-e-tools.iam_arn
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "OAIRead"
+        Effect    = "Allow"
+        Principal = {
+          AWS = aws_cloudfront_origin_access_identity.five-e-tools.iam_arn
+        }
+        Action    = ["s3:GetObject", "s3:GetObjectVersion"]
+        Resource  = "arn:aws:s3:::${local.web_bucket}/*"
       }
-      Action = ["s3:GetObject", "s3:GetObjectVersion"]
-      Resource = "arn:aws:s3:::${local.web_bucket}/*"
-    }]
+    ]
   })
 }
 
@@ -59,18 +69,18 @@ resource "aws_acm_certificate" "five-e-tools" {
     create_before_destroy = true
   }
   tags                      = {
-    Name = "5e-tools Managed by Terraform"
+    Name       = "5e-tools Managed by Terraform"
     CostCenter = local.app_name
   }
 }
 
 resource "aws_route53_record" "five-e-tools-acm" {
   for_each = {
-    for option in aws_acm_certificate.five-e-tools.domain_validation_options : option.domain_name => {
-      name   = option.resource_record_name
-      record = option.resource_record_value
-      type   = option.resource_record_type
-    }
+  for option in aws_acm_certificate.five-e-tools.domain_validation_options : option.domain_name => {
+    name   = option.resource_record_name
+    record = option.resource_record_value
+    type   = option.resource_record_type
+  }
   }
 
   allow_overwrite = true
@@ -118,7 +128,7 @@ resource "aws_cloudfront_distribution" "five-e-tools" {
     cached_methods         = ["HEAD", "GET", "OPTIONS"]
     target_origin_id       = local.origin_id
     viewer_protocol_policy = "redirect-to-https"
-    compress = true
+    compress               = true
     forwarded_values {
       query_string = false
       cookies {
@@ -153,6 +163,6 @@ resource "aws_cloudfront_distribution" "five-e-tools" {
   }
   tags = {
     Description = "${local.app_name}-${var.environment}"
-    CostCenter = local.app_name
+    CostCenter  = local.app_name
   }
 }
