@@ -56,6 +56,11 @@ jobs:
           aws-secret-access-key: ${{secrets[steps.set-secret-keys.outputs.AWS_SECRET_KEY_NAME]}}
           aws-region: "us-east-2"
 
+      - name: Set TF Workspace ENV Variable
+        id: tf_workspace
+        working-directory: ./terraform
+        run: echo "TF_WORKSPACE=${{steps.branch.outputs.lowercase}}" >> $GITHUB_ENV
+
       - name: Install Terraform
         id: tf_install
         uses: hashicorp/setup-terraform@v1
