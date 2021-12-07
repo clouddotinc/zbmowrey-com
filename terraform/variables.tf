@@ -53,28 +53,7 @@ variable "ns_records" {
   type = map(list(string))
   default = {}
 }
-variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
-}
-variable "vpc_availability_zones" {
-  type    = list(string)
-  default = ["us-east-1a", "us-east-1b"]
-}
-variable "vpc_private_subnets" {
-  type    = list(string)
-  default = ["10.0.0.0/18", "10.0.64.0/18"]
-}
-variable "vpc_public_subnets" {
-  type    = list(string)
-  default = ["10.0.128.0/18", "10.0.192.0/18"]
-}
 variable "create_api_domain_name" {
   type    = bool
   default = true
-}
-# For invalidations (not presently in use).
-variable "cf_distribution" {
-  type = string
-  default = ""
 }
