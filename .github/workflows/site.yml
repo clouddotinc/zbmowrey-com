@@ -67,7 +67,7 @@ jobs:
           args: --acl public-read --delete --cache-control 'max-age=3600'
         env:
           # This should really be a variable, but I got lazy.
-          AWS_S3_BUCKET: 'zbmowrey-com-${{ steps.branch.outputs.lowercase }}-web-primary'
+          AWS_S3_BUCKET: '${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary'
           SOURCE_DIR: "dist"
 
       - name: s3 Sync Web Secondary on Push
@@ -78,7 +78,7 @@ jobs:
           args: --acl public-read --delete --cache-control 'max-age=3600'
         env:
           # Same here. Laziness. I'll clean up later.
-          AWS_S3_BUCKET: 'zbmowrey-com-${{ steps.branch.outputs.lowercase }}-web-secondary'
+          AWS_S3_BUCKET: '${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary'
           SOURCE_DIR: "dist"
 
       # If a cloudfront distribution key is defined, let's invalidate /* and refresh the cache.
