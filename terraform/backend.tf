@@ -7,5 +7,3 @@ terraform {
     }
   }
 }
-
-# Testing trigger again
