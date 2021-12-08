@@ -1,12 +1,4 @@
 environment            = "main"
-app_name               = "zbmowrey-com"
-owner_name             = "zbmowrey"
-root_domain            = "zbmowrey.com"
-primary_region         = "us-east-2"
-secondary_region       = "us-east-1"
-web_primary_bucket     = "web-primary"
-web_secondary_bucket   = "web-secondary"
-web_log_bucket         = "web-log"
 create_api_domain_name = true
 
 aaaa_records  = {
