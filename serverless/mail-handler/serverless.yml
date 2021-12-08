@@ -24,4 +24,4 @@ functions:
           method: get
 
 resources:
-  Description: "Github: zbmowrey/zbmowrey-com/serverless/mail-handler"
+  Description: "Receives web contact requests and creates notifications."
