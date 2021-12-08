@@ -1,6 +1,6 @@
 # Setup
 
-Install serverless & serverless-plugin-resource-tagging. 
+Install [serverless](https://www.serverless.com/framework/docs/getting-started) & [serverless-plugin-resource-tagging](https://www.serverless.com/plugins/serverless-plugin-resource-tagging). 
 
 # Configuration & Convention
 
@@ -13,7 +13,7 @@ The APP for *most* lambda should be "zbmowrey-com", though you may have a use-ca
 ## Service
 The service name must be formatted as follows:
 
-    ${opt:stage,"dev"}-$app-$serviceDescription
+    ${opt:stage,"dev"}-$app-$service-description-kebab-case
 
 Prefixing in this manner will ensure that every service is uniquely named within an account.
 Be aware that many of our stacks are similar if not identical, and we deploy all projects of a
@@ -26,7 +26,8 @@ given stage into a common AWS account for that stage.
     service: ${opt:stage, "dev"}-zbmowrey-com-mail-handler 
 
 ## Stack Name
-**stackName** must be declared as part of the **provider** block, and must match the formatting of the service name. 
+**stackName** must be declared as part of the **provider** block, and must match the formatting of the service name.
+This can be automated using custom properties. See mail-handler/serverless.yml for example.
 
     provider:
         ...
