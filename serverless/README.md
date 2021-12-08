@@ -23,11 +23,11 @@ given stage into a common AWS account for that stage.
 
     org: zbmowrey
     app: zbmowrey-com
-    service: ${opt:stage, "dev"}-zbmowrey-com-mail-handler 
+    service: zbmowrey-mail-handler 
 
 ## Stack Name
-**stackName** must be declared as part of the **provider** block, and must match the formatting of the service name.
-This can be automated using custom properties. See mail-handler/serverless.yml for example.
+**stackName** must be declared as part of the **provider** block. The name must be formatted as the
+stage name, the app name, and the lambda name, all kebab-case. 
 
     provider:
         ...
