@@ -4,11 +4,14 @@ Install [serverless](https://www.serverless.com/framework/docs/getting-started) 
 
 # Configuration & Convention
 
-## Organization
-The ORG for *all* lambda in this repository is "zbmowrey". 
+## Organization & App
 
-## App 
-The APP for *most* lambda should be "zbmowrey-com", though you may have a use-case that differs.
+Do not provide org and app keys in your serverless configurations. I'm electing to avoid the
+serverless dashboard wherever possible and use Serverless purely to deploy lambda. The biggest
+reason for this is that enablement of the dashboard means you need to provide AWS keys and/or
+role access to Serverless, and I'm trying to minimize my attack surface area by centralizing
+secrets in Github (eventually it'll almost entirely be in cloud, with Github having only the
+access it needs to grab secrets from there). 
 
 ## Service
 The service name must be formatted as follows:
