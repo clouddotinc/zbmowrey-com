@@ -1,7 +1,5 @@
 frameworkVersion: '2 || 3'
 
-org: zbmowrey
-app: zbmowrey-com
 service: zbmowrey-mail-handler
 
 provider:

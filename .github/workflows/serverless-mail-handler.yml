@@ -15,8 +15,7 @@ jobs:
       matrix:
         node-version: [14.x]
     env:
-      FOO: "bar"
-      # SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_TOKEN }}
+      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_TOKEN }}
     defaults:
       run:
         shell: bash
