@@ -18,15 +18,24 @@ All deployments are constrained to the develop, staging, or main environments, w
 
 ### Terraform Cloud
 
-Terraform Cloud is integrated with this repository and will automatically deploy infrastructure when code changes in the terraform/ folder. 
+Terraform Cloud is our backend state & lock provider. Deployments are executed locally within the Github Actions container. 
+This avoids secret spread, where creds get stored in many external provider accounts. 
+
+### Serverless Framework
+
+Serverless Framework is the lambda development & deployment solution of choice. Deployments here are also
+run locally to the Github Actions container, rather than executed from the Serverless Dashboard. 
 
 ### Github Actions
 
-Github Actions is triggered by changes in the src/, public/, or serverless/ folders:
+Github Actions is triggered by changes in the src/, public/, serverless/, or terraform/ folders:
 * Changes in the src/ or public/ folders will trigger a process which builds, syncs to s3, and invalidates the CDN distribution.
 * Changes in sub-folders of serverless/ will trigger a Serverless Framework deployment.
   * Each must be defined in .github/workflows/
   * See .github/workflows/serverless-mail-handler.yml for an example.
+* Changes in terraform/ will trigger evaluation:
+  * A pull request will trigger a plan, followed by a PR comment of the plan output. 
+  * A push will trigger a plan/apply cycle. 
  
 ### Notes on Timing
 
