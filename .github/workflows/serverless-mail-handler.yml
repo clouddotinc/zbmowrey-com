@@ -21,9 +21,10 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
 
-      - name: Get Branch Name
+      - name: Branch Name From Push
         id: branch-merge
         if: github.event_name == 'push'
         run: echo "branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -33,6 +34,19 @@ jobs:
         uses: ASzc/change-string-case-action@v1
         with:
           string: ${{ env.branch}}
+
+      - name: Set Secret Keys
+        id: set-secret-keys
+        run: |
+          echo "::set-output name=AWS_ACCESS_KEY_NAME::AWS_KEY_${{steps.branch.outputs.uppercase}}"
+          echo "::set-output name=AWS_SECRET_KEY_NAME::AWS_SECRET_${{steps.branch.outputs.uppercase}}"
+
+      - name: Configure AWS Creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets[steps.set-secret-keys.outputs.AWS_ACCESS_KEY_NAME]}}
+          aws-secret-access-key: ${{secrets[steps.set-secret-keys.outputs.AWS_SECRET_KEY_NAME]}}
+          aws-region: "us-east-2"
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
