@@ -1,14 +1,14 @@
 on:
   pull_request:
     paths:
-      - './terraform/**'
+      - '**terraform/**'
     branches:
       - develop
       - staging
       - main
   push:
     paths:
-      - './terraform/**'
+      - '**terraform/**'
     branches:
       - develop
       - staging
