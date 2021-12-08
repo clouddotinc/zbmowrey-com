@@ -2,18 +2,14 @@ frameworkVersion: '2 || 3'
 
 org: zbmowrey
 app: zbmowrey-com
-
-custom:
-  serviceName: ${opt:stage, 'dev'}-zbmowrey-mail-handler
-
-service: ${self:custom.serviceName}
+service: zbmowrey-mail-handler
 
 provider:
   name: aws
   runtime: python3.8
   region: us-east-2
   lambdaHashingVersion: '20201221'
-  stackName: ${self:custom.serviceName}
+  stackName: ${opt:stage, 'dev'}-zbmowrey-mail-handler
   stackTags:
     CostCenter: zbmowrey
     Environment: ${opt:stage,'dev'}
