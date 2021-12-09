@@ -14,6 +14,7 @@ txt_records   = {
   "zbmowrey.com"        = [
     "protonmail-verification=ea4260ba3df52d268f36ab707e662db9a8caaa64",
     "v=spf1 include:_spf.protonmail.ch mx ~all",
+    "google-site-verification=aqaHYTsRFfMPZkODqroumu597XrOdnzf0WzpYovMQmg"
   ]
   "_dmarc.zbmowrey.com" = ["v=DMARC1; p=none; rua=mailto:zb@zbmowrey.com"]
 }
