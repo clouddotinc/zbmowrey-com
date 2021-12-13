@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "five-e-tools" {
     }
     enabled = true
   }
-  policy = jsonencode({
+  policy   = jsonencode({
     Version   = "2012-10-17"
     Statement = [
       {
@@ -159,6 +159,7 @@ resource "aws_cloudfront_distribution" "five-e-tools" {
     cloudfront_default_certificate = false
     acm_certificate_arn            = aws_acm_certificate.five-e-tools.arn
     ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.2_2019"
   }
   tags = {
     Description = "${local.app_name}-${var.environment}"
