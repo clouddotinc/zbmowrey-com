@@ -225,6 +225,7 @@ resource "aws_cloudfront_distribution" "web-dist" {
 
   tags = {
     Description = "${var.app_name}-${var.environment}"
+    Foo = "bar"
   }
 }
 
