@@ -97,14 +97,27 @@ resource "aws_acm_certificate_validation" "five-e-tools" {
 }
 
 
-
 resource "aws_s3_bucket" "five-e-tools-logs" {
   bucket = local.log_bucket
-  tags = {
+  tags   = {
     "CostCenter" = "5e-zbmowrey-com"
   }
+  acl = "private"
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.zbmowrey-kms.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+  lifecycle_rule {
+    enabled = true
+    expiration {
+      days = 30
+    }
+  }
 }
-
 
 
 resource "aws_cloudfront_origin_access_identity" "five-e-tools" {
