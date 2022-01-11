@@ -44,13 +44,11 @@ jobs:
         with:
           string: ${{ env.branch}}
 
-      - name: Set Secret Keys
+      - name: Get Deployment Role Name from Secrets
         id: set-secret-keys
         run: |
-          echo "::set-output name=AWS_ACCESS_KEY_NAME::AWS_KEY_${{steps.branch.outputs.uppercase}}"
-          echo "::set-output name=AWS_SECRET_KEY_NAME::AWS_SECRET_${{steps.branch.outputs.uppercase}}"
-          echo "::set-output name=CF_DISTRIBUTION_NAME::CF_DISTRIBUTION_${{steps.branch.outputs.uppercase}}"
           echo "::set-output name=AWS_DEPLOY_ROLE::AWS_${{steps.branch.outputs.uppercase}}_DEPLOY_ROLE"
+
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
