@@ -49,14 +49,12 @@ jobs:
         run: |
           echo "::set-output name=AWS_DEPLOY_ROLE::AWS_${{steps.branch.outputs.uppercase}}_DEPLOY_ROLE"
 
-      - name: Configure AWS Creds
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.6.0
         with:
-          aws-access-key-id: ${{secrets.AWS_KEY_DEPLOYMENT}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_DEPLOYMENT}}
-          role-to-assume: ${{secrets[steps.set-secret-keys.outputs.AWS_DEPLOY_ROLE]}}
-          role-duration-seconds: 3600
-          aws-region: "us-east-2"
+          # Temporarily left @ dev acct. This will need to be dynamic.
+          role-to-assume: arn:aws:iam::247216695226:role/ZbmowreyGithubDeploymentRole
+          aws-region: us-east-2
 
       - name: Set TF Workspace ENV Variable
         id: tf_workspace
