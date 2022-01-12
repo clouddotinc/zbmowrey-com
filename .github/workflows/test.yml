@@ -14,12 +14,10 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - run: sleep 5 # there's still a race condition for now
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::247216695226:role/ZbmowreyGitHubDeploymentRole
+          role-to-assume: arn:aws:iam::247216695226:role/ZbmowreyGithubDeploymentRole
           aws-region: us-east-2
       - run: aws sts get-caller-identity
       - run: aws s3 ls
