@@ -25,7 +25,7 @@ output "five-e-cloudfront-dist" {
 }
 
 output "test" {
-  value = "test3"
+  value = "test4"
 }
 
 #output "gilfoyle-api-invoke-url" {
