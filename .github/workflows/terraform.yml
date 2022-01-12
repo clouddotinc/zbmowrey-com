@@ -17,6 +17,9 @@ jobs:
   terraform_plan:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     defaults:
       run:
         shell: bash
