@@ -56,7 +56,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1.6.0
         with:
-          role-to-assume: arn:aws:iam::${{secrets[${{steps.set-secret-keys.outputs.ACCOUNT_SECRET_NAME}}]}}:role/GithubDeploymentRole
+          role-to-assume: arn:aws:iam::${{secrets[steps.set-secret-keys.outputs.ACCOUNT_SECRET_NAME]}}:role/GithubDeploymentRole
           role-session-name: ${{steps.set-secret-keys.ROLE_SESSION_NAME}}
           aws-region: us-east-2
 
