@@ -51,7 +51,7 @@ jobs:
         id: set-secret-keys
         run: |
           echo "::set-output name=ACCOUNT_SECRET_NAME::AWS_${{steps.branch.outputs.uppercase}}_ACCOUNT"
-          echo "::set-output name=ROLE_SESSION_NAME::GithubDeploymentZbmowreyCom${{steps.branch.outputs.capitalized}}
+          echo "::set-output name=ROLE_SESSION_NAME::GithubDeploymentZbmowreyCom${{steps.branch.outputs.capitalized}}"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1.6.0
