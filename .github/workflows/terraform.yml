@@ -50,13 +50,14 @@ jobs:
       - name: Get Deployment Role Name from Secrets
         id: set-secret-keys
         run: |
-          echo "::set-output name=AWS_DEPLOY_ROLE::AWS_${{steps.branch.outputs.uppercase}}_DEPLOY_ROLE"
+          echo "::set-output name=ACCOUNT_SECRET_NAME::AWS_${{steps.branch.outputs.uppercase}}_ACCOUNT"
+          echo "::set-output name=ROLE_SESSION_NAME::GithubDeploymentZbmowreyCom${{steps.branch.outputs.capitalized}}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1.6.0
         with:
-          # Temporarily left @ dev acct. This will need to be dynamic.
-          role-to-assume: arn:aws:iam::247216695226:role/ZbmowreyGithubDeploymentRole
+          role-to-assume: arn:aws:iam::${{secrets[${{steps.set-secret-keys.outputs.ACCOUNT_SECRET_NAME}}]}}:role/GithubDeploymentRole
+          role-session-name: ${{steps.set-secret-keys.ROLE_SESSION_NAME}}
           aws-region: us-east-2
 
       - name: Set TF Workspace ENV Variable
