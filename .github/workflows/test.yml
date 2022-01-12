@@ -1,0 +1,25 @@
+name: OIDC Token Test
+on:
+  workflow_dispatch:
+    inputs:
+      aws_account_id:
+        description: 'Your AWS account ID you deployed GitHub Acitons IAM role via Terraform'
+        required: true
+        default: 'YOUR_AWS_ACCOUNT_ID'
+
+jobs:
+  test-github-id-token-with-aws:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - run: sleep 5 # there's still a race condition for now
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::247216695226:role/ZbmowreyGitHubDeploymentRole
+          aws-region: us-east-2
+      - run: aws sts get-caller-identity
+      - run: aws s3 ls
