@@ -24,10 +24,6 @@ output "five-e-cloudfront-dist" {
   value = aws_cloudfront_distribution.five-e-tools.id
 }
 
-output "test" {
-  value = "test4"
-}
-
 #output "gilfoyle-api-invoke-url" {
 #  description = "Gilfoyle Lambda Invocation URL"
 #  value = module.gilfoyle-api.default_apigatewayv2_stage_invoke_url
