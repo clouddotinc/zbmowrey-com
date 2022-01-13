@@ -14,7 +14,7 @@ on:
       - staging
       - main
 jobs:
-  terraform_plan:
+  terraform_cycle:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     permissions:
@@ -25,5 +25,4 @@ jobs:
         shell: bash
         working-directory: ./
     steps:
-      - name: Terraform Plan, PR Comment, Conditional Apply
-        uses: zbmowrey/deploy-terraform/.github/workflows/terraform.yml@main
+      - uses: zbmowrey/deploy-terraform/.github/workflows/terraform.yml@main
