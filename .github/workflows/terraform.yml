@@ -22,7 +22,7 @@ jobs:
       id-token: write
       contents: read
     outputs:
-      branch: steps.branch.outputs.lowercase
+      branch: ${{steps.branch.outputs.lowercase}}
     defaults:
       run:
         shell: bash
