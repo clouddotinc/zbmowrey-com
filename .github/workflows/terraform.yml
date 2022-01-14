@@ -13,8 +13,9 @@ on:
       - develop
       - staging
       - main
+
 jobs:
-  setup_credentials:
+  setup_aws_creds:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     permissions:
@@ -58,9 +59,9 @@ jobs:
           aws-region: us-east-2
 
   terraform_cycle:
-    needs: setup_credentials
+    needs: setup_aws_creds
     uses: zbmowrey/deploy-terraform/.github/workflows/terraform.yml@main
-   with:
-     tf_cloud_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
-     gh_token: $${{ secrets.GITHUB_TOKEN }}
-     workspace: $${{ steps.branch.outputs.lowercase }}
+    with:
+      tf_cloud_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
+      gh_token: $${{ secrets.GITHUB_TOKEN }}
+      workspace: $${{ steps.branch.outputs.lowercase }}
