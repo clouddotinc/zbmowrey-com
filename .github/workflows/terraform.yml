@@ -16,3 +16,6 @@ on:
 jobs:
   terraform_cycle:
    uses: zbmowrey/deploy-terraform/.github/workflows/terraform.yml@main
+   with:
+     account_id: ${{ secrets[format('AWS_{0}_ACCOUNT',steps.branch.outputs.uppercase)] }}
+     tf_cloud_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
