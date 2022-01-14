@@ -21,6 +21,8 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    outputs:
+      branch: steps.branch.outputs.lowercase
     defaults:
       run:
         shell: bash
@@ -65,4 +67,4 @@ jobs:
       tf_cloud_token: "${{ secrets.TERRAFORM_CLOUD_TOKEN }}"
       gh_token: "${{ secrets.GITHUB_TOKEN }}"
     with:
-      workspace: "${{ steps.branch.outputs.lowercase }}"
+      workspace: "${{ needs.setup_aws_creds.outputs.branch }}"
