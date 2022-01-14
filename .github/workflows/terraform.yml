@@ -23,6 +23,7 @@ jobs:
       contents: read
     outputs:
       branch: ${{steps.branch.outputs.lowercase}}
+      session: ${{ env.AWS_SESSION_TOKEN }}
     defaults:
       run:
         shell: bash
@@ -66,5 +67,6 @@ jobs:
     secrets:
       tf_cloud_token: "${{ secrets.TERRAFORM_CLOUD_TOKEN }}"
       gh_token: "${{ secrets.GITHUB_TOKEN }}"
+      aws_session: "{{ needs.setup_aws_creds.outputs.session }}"
     with:
       workspace: "${{ needs.setup_aws_creds.outputs.branch }}"
