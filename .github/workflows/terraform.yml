@@ -61,7 +61,8 @@ jobs:
   terraform_cycle:
     needs: setup_aws_creds
     uses: zbmowrey/deploy-terraform/.github/workflows/terraform.yml@main
-    with:
+    secrets:
       tf_cloud_token: "${{ secrets.TERRAFORM_CLOUD_TOKEN }}"
       gh_token: "${{ secrets.GITHUB_TOKEN }}"
+    with:
       workspace: "${{ steps.branch.outputs.lowercase }}"
