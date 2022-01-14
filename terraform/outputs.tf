@@ -25,7 +25,7 @@ output "five-e-cloudfront-dist" {
 }
 
 output "testing-new-actions-workflow" {
-  value = "close-quote2"
+  value = "close-quote3"
 }
 
 #output "gilfoyle-api-invoke-url" {
