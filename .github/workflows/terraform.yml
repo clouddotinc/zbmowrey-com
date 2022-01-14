@@ -63,5 +63,5 @@ jobs:
     uses: zbmowrey/deploy-terraform/.github/workflows/terraform.yml@main
     with:
       tf_cloud_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
-      gh_token: $${{ secrets.GITHUB_TOKEN }}
-      workspace: $${{ steps.branch.outputs.lowercase }}
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
+      workspace: ${{ steps.branch.outputs.lowercase }}
