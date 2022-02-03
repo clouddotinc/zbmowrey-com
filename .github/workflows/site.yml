@@ -85,6 +85,6 @@ jobs:
       # If a cloudfront distribution key is defined, let's invalidate /* and refresh the cache.
 
       - name: Invalidate Distribution Path on Push
-        if: github.event_name == 'push' && "${{steps.set-secret-keys.outputs.CF_DISTRIBUTION_NAME}}" != ""
-        run: aws cloudfront create-invalidation --distribution-id="${{steps.set-secret-keys.outputs.CF_DISTRIBUTION}}" --paths="/*"
+        if: github.event_name == 'push' && "${{steps.keys.outputs.CF_DISTRIBUTION_NAME}}" != ""
+        run: aws cloudfront create-invalidation --distribution-id="${{secrets[steps.keys.outputs.CF_DISTRIBUTION_NAME]}}" --paths="/*"
 
