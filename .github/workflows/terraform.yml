@@ -1,29 +1,33 @@
 on:
   pull_request:
     paths:
-      - '**terraform/**'
+      - 'terraform/**'
     branches:
       - develop
       - staging
       - main
   push:
     paths:
-      - '**terraform/**'
+      - 'terraform/**'
     branches:
       - develop
       - staging
       - main
+
 jobs:
-  terraform_plan:
+  terraform_deploy:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      branch: ${{steps.branch.outputs.lowercase}}
+      session: ${{ env.AWS_SESSION_TOKEN }}
     defaults:
       run:
         shell: bash
         working-directory: ./
-    env:
-      TF_IN_AUTOMATION: true
-      TERRAFORM_CLOUD_TOKEN: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.4
@@ -42,41 +46,41 @@ jobs:
         id: branch
         uses: ASzc/change-string-case-action@v1
         with:
-          string: ${{ env.branch}}
+          string: ${{ env.branch }}
 
-      - name: Set Secret Keys
-        id: set-secret-keys
+      - name: Set Keys
+        id: keys
         run: |
-          echo "::set-output name=AWS_ACCESS_KEY_NAME::AWS_KEY_${{steps.branch.outputs.uppercase}}"
-          echo "::set-output name=AWS_SECRET_KEY_NAME::AWS_SECRET_${{steps.branch.outputs.uppercase}}"
-          echo "::set-output name=CF_DISTRIBUTION_NAME::CF_DISTRIBUTION_${{steps.branch.outputs.uppercase}}"
+          echo "::set-output name=ROLE_SESSION_NAME::GithubDeploymentZbmowreyCom${{steps.branch.outputs.capitalized}}"
+          echo "::set-output name=AWS_ACCOUNT_ID::${{secrets[format('AWS_{0}_ACCOUNT',steps.branch.outputs.uppercase)]}}"
 
-      - name: Configure AWS Creds
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.6.0
         with:
-          aws-access-key-id: ${{secrets[steps.set-secret-keys.outputs.AWS_ACCESS_KEY_NAME]}}
-          aws-secret-access-key: ${{secrets[steps.set-secret-keys.outputs.AWS_SECRET_KEY_NAME]}}
-          aws-region: "us-east-2"
+          role-to-assume: arn:aws:iam::${{steps.keys.outputs.AWS_ACCOUNT_ID}}:role/GithubDeploymentRole
+          role-session-name: ${{steps.keys.outputs.ROLE_SESSION_NAME}}
+          aws-region: us-east-2
 
       - name: Set TF Workspace ENV Variable
         id: tf_workspace
-        working-directory: ./terraform
-        run: echo "TF_WORKSPACE=${{steps.branch.outputs.lowercase}}" >> $GITHUB_ENV
+        working-directory: terraform
+        run: echo "TF_WORKSPACE=${{ steps.branch.outputs.lowercase }}" >> $GITHUB_ENV
 
       - name: Install Terraform
         id: tf_install
         uses: hashicorp/setup-terraform@v1
         with:
+          terraform_version: 1.1.3
           cli_config_credentials_token: ${{ secrets.TERRAFORM_CLOUD_TOKEN }}
 
       - name: Terraform Init
         id: tf_init
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform init
 
       - name: Terraform Plan
         id: tf_plan
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform plan -no-color -var-file="env.all.tfvars" -var-file="env.${{ steps.branch.outputs.lowercase }}.tfvars" -out="plan.txt"
         continue-on-error: true
 
@@ -99,5 +103,5 @@ jobs:
       - name: Terraform Apply on Push
         id: tf_apply
         if: github.event_name == 'push'
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform apply plan.txt

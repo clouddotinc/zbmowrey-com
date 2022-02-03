@@ -57,3 +57,21 @@ variable "create_api_domain_name" {
   type    = bool
   default = true
 }
+
+variable "vpc_cidr" {
+  type = string
+  default = "10.0.0.0/8"
+}
+variable "vpc_availability_zones" {
+  type = list(string)
+  default = []
+}
+variable "vpc_private_subnets" {
+  type = list(string)
+  default = []
+}
+variable "vpc_public_subnets" {
+  type = list(string)
+  default = []
+}
+

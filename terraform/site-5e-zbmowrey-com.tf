@@ -4,6 +4,7 @@ locals {
   base_domain = join(".", ["5e", local.app_domain])
   app_name    = "5e-zbmowrey-com"
   web_bucket  = "${local.app_name}-${var.environment}-web-primary"
+  log_bucket  = "${local.app_name}-${var.environment}-web-log"
   origin_id   = "${var.environment}-5e-origin"
 }
 
@@ -95,6 +96,30 @@ resource "aws_acm_certificate_validation" "five-e-tools" {
   validation_record_fqdns = [for record in aws_route53_record.five-e-tools-acm : record.fqdn]
 }
 
+
+resource "aws_s3_bucket" "five-e-tools-logs" {
+  bucket = local.log_bucket
+  tags   = {
+    "CostCenter" = "5e-zbmowrey-com"
+  }
+  acl = "private"
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.zbmowrey-kms.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+  lifecycle_rule {
+    enabled = true
+    expiration {
+      days = 30
+    }
+  }
+}
+
+
 resource "aws_cloudfront_origin_access_identity" "five-e-tools" {
   provider = aws.secondary
   comment  = "Managed by ${local.app_name}-${var.environment} terraform"
@@ -153,6 +178,10 @@ resource "aws_cloudfront_distribution" "five-e-tools" {
       restriction_type = "whitelist"
       locations        = ["US"]
     }
+  }
+
+  logging_config {
+    bucket = aws_s3_bucket.five-e-tools-logs.bucket_domain_name
   }
 
   viewer_certificate {
