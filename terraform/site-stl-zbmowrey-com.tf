@@ -118,6 +118,7 @@
 #    cloudfront_default_certificate = false
 #    acm_certificate_arn            = aws_acm_certificate.stl.arn
 #    ssl_support_method             = "sni-only"
+#    minimum_protocol_version       = "TLSv1.2_2019"
 #  }
 #  tags = {
 #    Description = "${local.stl_app_name}-${var.environment}"
