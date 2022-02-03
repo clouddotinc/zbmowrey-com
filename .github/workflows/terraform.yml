@@ -88,7 +88,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: robburger/terraform-pr-commenter@v1.5.0
         env:
-          GITHUB_TOKEN: ${{ secrets.gh_token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EXPAND_SUMMARY_DETAILS: 'false'
         with:
           commenter_type: plan
