@@ -9,6 +9,10 @@ on:
       - 'public/**'
       - 'yarn.lock'
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   deploy:
     timeout-minutes: 30
