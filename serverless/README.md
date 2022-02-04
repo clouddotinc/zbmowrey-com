@@ -56,5 +56,4 @@ must be as follows:
 
     resources:
         ...
-        Description: "Managed by Serverless Framework. See tags for Source URL." 
-
+        Description: "Managed by Serverless Framework. See tags for Source URL."
