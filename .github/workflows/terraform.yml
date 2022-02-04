@@ -14,6 +14,10 @@ on:
       - staging
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   terraform_deploy:
     timeout-minutes: 30
@@ -51,7 +55,7 @@ jobs:
       - name: Set Keys
         id: keys
         run: |
-          echo "::set-output name=ROLE_SESSION_NAME::GithubDeploymentZbmowreyCom${{steps.branch.outputs.capitalized}}"
+          echo "::set-output name=ROLE_SESSION_NAME::GithubDeploymentZbmowreyComTerraform${{steps.branch.outputs.capitalized}}"
           echo "::set-output name=AWS_ACCOUNT_ID::${{secrets[format('AWS_{0}_ACCOUNT',steps.branch.outputs.uppercase)]}}"
 
       - name: Configure AWS Credentials
