@@ -4,7 +4,7 @@ This is the code behind [my website](https://zbmowrey.com). If you see something
 
 ## The App
 
-The app is a static HTML website hosted in S3 and served by CloudFront. A multi-region design improves the SLA of my site from 99.9% (~9 hours/year downtime) to 99.99% (~52 minutes/year downtime). 
+The app is a static HTML website hosted in S3 and served by CloudFront. A multi-region design improves the SLA of my site from 99.9% (~9 hours/year downtime) to 99.99% (~52 minutes/year downtime). (Note: it was recently pointed out that CloudFront's SLA is 99.9%).
 
 Form handling, when necessary, will be performed using AWS Lambda & API Gateway, which both have generous permanently-free tiers.
 
