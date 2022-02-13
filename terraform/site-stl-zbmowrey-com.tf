@@ -3,8 +3,8 @@
 #locals {
 #  stl_base_domain = join(".", ["stl", local.app_domain])
 #  stl_app_name = "stl-zbmowrey-com"
-#  stl_web_bucket  = "${local.stl_app_name}-${var.environment}-web-primary"
-#  stl_origin_id   = "${var.environment}-stl-origin"
+#  stl_web_bucket  = "${local.stl_app_name}-${terraform.workspace}-web-primary"
+#  stl_origin_id   = "${terraform.workspace}-stl-origin"
 #}
 #
 #resource "aws_s3_bucket" "stl" {
@@ -56,7 +56,7 @@
 #
 #resource "aws_cloudfront_origin_access_identity" "stl" {
 #  provider = aws.secondary
-#  comment  = "Managed by ${local.stl_app_name}-${var.environment} terraform"
+#  comment  = "Managed by ${local.stl_app_name}-${terraform.workspace} terraform"
 #}
 #
 #resource "aws_cloudfront_distribution" "stl" {
@@ -121,7 +121,7 @@
 #    minimum_protocol_version       = "TLSv1.2_2019"
 #  }
 #  tags = {
-#    Description = "${local.stl_app_name}-${var.environment}"
+#    Description = "${local.stl_app_name}-${terraform.workspace}"
 #    CostCenter = local.stl_app_name
 #  }
 #}

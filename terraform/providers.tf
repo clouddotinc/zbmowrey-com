@@ -11,12 +11,12 @@ terraform {
 
 provider "aws" {
   region  = "us-east-1"
-  profile = var.environment
+  profile = terraform.workspace
   default_tags {
     tags = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = var.environment
+      Environment = terraform.workspace
       Source      = "https://github.com/zbmowrey/zbmowrey-com/tree/develop/terraform"
       Terraform   = true
     }
@@ -26,12 +26,12 @@ provider "aws" {
 provider "aws" {
   alias   = "primary"
   region  = var.primary_region
-  profile = var.environment
+  profile = terraform.workspace
   default_tags {
     tags = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = var.environment
+      Environment = terraform.workspace
       Terraform   = true
     }
   }
@@ -40,12 +40,12 @@ provider "aws" {
 provider "aws" {
   alias   = "secondary"
   region  = var.secondary_region
-  profile = var.environment
+  profile = terraform.workspace
   default_tags {
     tags = {
       CostCenter  = var.app_name
       Owner       = var.owner_name
-      Environment = var.environment
+      Environment = terraform.workspace
       Terraform   = true
     }
   }

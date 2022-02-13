@@ -1,4 +1,3 @@
-environment            = "main"
 create_api_domain_name = true
 
 aaaa_records  = {

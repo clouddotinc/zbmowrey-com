@@ -3,16 +3,16 @@
 
 locals {
   # zbmowrey-com-develop-web-primary
-  web_primary_bucket   = join("-", [var.app_name, var.environment, var.web_primary_bucket])
-  web_secondary_bucket = join("-", [var.app_name, var.environment, var.web_secondary_bucket])
-  web_log_bucket       = join("-", [var.app_name, var.environment, var.web_log_bucket])
-  app_domain           = var.environment == "main" ? var.root_domain : join(".", [var.environment, var.root_domain])
+  web_primary_bucket   = join("-", [var.app_name, terraform.workspace, var.web_primary_bucket])
+  web_secondary_bucket = join("-", [var.app_name, terraform.workspace, var.web_secondary_bucket])
+  web_log_bucket       = join("-", [var.app_name, terraform.workspace, var.web_log_bucket])
+  app_domain           = terraform.workspace == "main" ? var.root_domain : join(".", [terraform.workspace, var.root_domain])
   api_domain           = "api.${local.app_domain}"
   acm_validations      = []
   default_tags         = {
     CostCenter  = var.app_name
     Owner       = var.owner_name
-    Environment = var.environment
+    Environment = terraform.workspace
     Terraform   = true
   }
 }
@@ -42,7 +42,7 @@ resource "aws_s3_bucket" "web-primary" {
     }
   }
   lifecycle_rule {
-    id      = "${var.app_name}-${var.environment}-web-primary-lifecycle"
+    id      = "${var.app_name}-${terraform.workspace}-web-primary-lifecycle"
     noncurrent_version_expiration {
       days = 7
     }
@@ -77,7 +77,7 @@ resource "aws_s3_bucket" "web-secondary" {
     enabled = true
   }
   lifecycle_rule {
-    id      = "${var.environment}-web-secondary-lifecycle"
+    id      = "${terraform.workspace}-web-secondary-lifecycle"
     noncurrent_version_expiration {
       days = 7
     }
@@ -123,7 +123,7 @@ resource "aws_s3_bucket" "web-logs" {
   provider = aws.secondary # logs should be written to us-east-1
   bucket   = local.web_log_bucket
   lifecycle_rule {
-    id      = "${var.environment}-web-log-lifecycle"
+    id      = "${terraform.workspace}-web-log-lifecycle"
     enabled = true
     transition {
       days          = 30
@@ -140,7 +140,7 @@ resource "aws_s3_bucket" "web-logs" {
 
 resource "aws_cloudfront_origin_access_identity" "web-oai" {
   provider = aws.primary
-  comment  = "Managed by ${var.app_name}-${var.environment} terraform"
+  comment  = "Managed by ${var.app_name}-${terraform.workspace} terraform"
 }
 
 resource "aws_cloudfront_distribution" "web-dist" {
@@ -224,7 +224,7 @@ resource "aws_cloudfront_distribution" "web-dist" {
   }
 
   tags = {
-    Description = "${var.app_name}-${var.environment}"
+    Description = "${var.app_name}-${terraform.workspace}"
     Foo = "bar"
   }
 }
@@ -238,6 +238,6 @@ resource "aws_acm_certificate" "web-cert" {
     create_before_destroy = true
   }
   tags                      = {
-    Name = "${var.app_name} - ${var.environment}"
+    Name = "${var.app_name} - ${terraform.workspace}"
   }
 }

@@ -4,7 +4,10 @@
 resource "aws_dynamodb_table" "global-store" {
   provider = aws.secondary
   hash_key = "k"
-  name     = var.environment == "develop" ? "GlobalStore" : "zbmowrey-global-store-${var.environment}"
+  # I screwed up and thought DDB tables were unique at the account level.
+  # Fixing this will break the Gilfoyle/insult-bot lambda. Needs to be done,
+  # but not today.
+  name     = terraform.workspace == "develop" ? "GlobalStore" : "zbmowrey-global-store-${terraform.workspace}"
   attribute {
     name = "k"
     type = "S"

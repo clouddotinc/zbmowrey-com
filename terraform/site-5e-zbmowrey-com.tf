@@ -3,9 +3,9 @@
 locals {
   base_domain = join(".", ["5e", local.app_domain])
   app_name    = "5e-zbmowrey-com"
-  web_bucket  = "${local.app_name}-${var.environment}-web-primary"
-  log_bucket  = "${local.app_name}-${var.environment}-web-log"
-  origin_id   = "${var.environment}-5e-origin"
+  web_bucket  = "${local.app_name}-${terraform.workspace}-web-primary"
+  log_bucket  = "${local.app_name}-${terraform.workspace}-web-log"
+  origin_id   = "${terraform.workspace}-5e-origin"
 }
 
 resource "aws_s3_bucket" "five-e-tools" {
@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "five-e-tools" {
     enabled = true
   }
   lifecycle_rule {
-    id      = "${var.app_name}-${var.environment}-web-primary-lifecycle"
+    id      = "${var.app_name}-${terraform.workspace}-web-primary-lifecycle"
     noncurrent_version_expiration {
       days = 7
     }
@@ -122,7 +122,7 @@ resource "aws_s3_bucket" "five-e-tools-logs" {
 
 resource "aws_cloudfront_origin_access_identity" "five-e-tools" {
   provider = aws.secondary
-  comment  = "Managed by ${local.app_name}-${var.environment} terraform"
+  comment  = "Managed by ${local.app_name}-${terraform.workspace} terraform"
 }
 
 resource "aws_cloudfront_distribution" "five-e-tools" {
@@ -191,7 +191,7 @@ resource "aws_cloudfront_distribution" "five-e-tools" {
     minimum_protocol_version       = "TLSv1.2_2019"
   }
   tags = {
-    Description = "${local.app_name}-${var.environment}"
+    Description = "${local.app_name}-${terraform.workspace}"
     CostCenter  = local.app_name
   }
 }

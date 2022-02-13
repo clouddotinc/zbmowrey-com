@@ -5,10 +5,6 @@ variable "app_name" {
 variable "owner_name" {
   type = string
 }
-variable "environment" {
-  type    = string
-  default = "develop"
-}
 variable "root_domain" {
   type    = string
   default = "zbmowrey.com"
