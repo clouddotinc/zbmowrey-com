@@ -17,18 +17,22 @@
       </p>
       <p class="text-center">
         <a href="https://www.credly.com/badges/0107a9e4-4742-44d9-9ab2-a22763ea0c33"
-           target="_blank"><img height="100" src="img/certs/aws-sap.png"
+           target="_blank"><img height="100" src="/img/certs/aws-sap.png"
                                 alt="AWS Certified Solutions Architect Professional"></a>
-        <a href="https://www.credly.com/badges/2131b6a3-bd35-434f-82af-7de1e4d5e2ae"
-           target="_blank"><img height="100" src="img/certs/aws-soa.png"
-                                alt="AWS Certified SysOps Administrator Associate"></a>
-        <a href="https://www.credly.com/badges/a5a7870c-1ec1-47bf-8a91-8a637436e31d"
-           target="_blank"><img height="100" src="img/certs/aws-saa.png"
-                                alt="AWS Certified Solutions Architect Associate"></a>
-        <a href="https://www.credly.com/badges/431e3f52-42c8-4fa5-894d-98201887d13b"
-           target="_blank"><img height="100" src="img/certs/tf-associate.png" alt="Terraform Associate"></a>
+
         <a href="https://www.credly.com/badges/918fe1af-7b9d-449c-a389-c8455922114b"
-           target="_blank"><img height="100" src="img/certs/tf-chip.png" alt="Certified HashiCorp Implementation Partner"></a>
+           target="_blank"><img height="100" src="/img/certs/tf-chip.png" alt="Certified HashiCorp Implementation Partner"></a>
+
+        <a href="https://www.credly.com/badges/2131b6a3-bd35-434f-82af-7de1e4d5e2ae"
+           target="_blank"><img height="100" src="/img/certs/aws-soa.png"
+                                alt="AWS Certified SysOps Administrator Associate"></a>
+
+        <a href="https://www.credly.com/badges/b415402f-dcd2-47f7-a35d-d1ef589ba8b5"
+           target="_blank"><img height="100" src="/img/certs/lfi-finops-practitioner.png" alt="FinOps Certified Practitioner"></a>
+
+        <a href="https://www.credly.com/badges/431e3f52-42c8-4fa5-894d-98201887d13b"
+           target="_blank"><img height="100" src="/img/certs/tf-associate.png" alt="Terraform Associate"></a>
+
 
       </p>
       <p class="pb-1" data-appear-animation="fadeInUpShorter"
