@@ -4,6 +4,7 @@ variable "app_name" {
 }
 variable "owner_name" {
   type = string
+  default = "zbmowrey"
 }
 variable "root_domain" {
   type    = string
@@ -19,15 +20,15 @@ variable "secondary_region" {
 }
 variable "web_primary_bucket" {
   type    = string
-  default = "zbmowrey-com-web-primary"
+  default = "web-primary"
 }
 variable "web_secondary_bucket" {
   type    = string
-  default = "zbmowrey-com-web-secondary"
+  default = "web-secondary"
 }
 variable "web_log_bucket" {
   type    = string
-  default = "zbmowrey-com-web-log"
+  default = "web-log"
 }
 variable "aaaa_records" {
   type = map(string)
