@@ -15,7 +15,7 @@ txt_records   = {
     "v=spf1 include:_spf.protonmail.ch mx ~all",
     "google-site-verification=aqaHYTsRFfMPZkODqroumu597XrOdnzf0WzpYovMQmg"
   ]
-  "_dmarc.zbmowrey.com" = ["v=DMARC1; p=none; rua=mailto:zb@zbmowrey.com"]
+  "_dmarc.zbmowrey.com" = ["v=DMARC1; p=reject; rua=mailto:zb@zbmowrey.com"]
 }
 cname_records = {
   "v5ovgfocysfgiknwwxlo7fm3ax6rwufl._domainkey.zbmowrey.com" = "v5ovgfocysfgiknwwxlo7fm3ax6rwufl.dkim.amazonses.com"
