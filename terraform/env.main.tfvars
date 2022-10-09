@@ -20,11 +20,10 @@ txt_records   = {
 cname_records = {
   "v5ovgfocysfgiknwwxlo7fm3ax6rwufl._domainkey.zbmowrey.com" = "v5ovgfocysfgiknwwxlo7fm3ax6rwufl.dkim.amazonses.com"
   "qmg5aatpkrq7obcou2grvpqnsrkkv3b6._domainkey.zbmowrey.com" = "qmg5aatpkrq7obcou2grvpqnsrkkv3b6.dkim.amazonses.com"
+  "kudr72x2mm234es5bvwfj7ojawwfgp45._domainkey.zbmowrey.com" = "kudr72x2mm234es5bvwfj7ojawwfgp45.dkim.amazonses.com"
   "protonmail3._domainkey.zbmowrey.com"                      = "protonmail3.domainkey.d2hfypnvtrf7upmspiqkg5tf2a2ynzawy5w25shesjfhrrkrjx57a.domains.proton.ch."
   "protonmail2._domainkey.zbmowrey.com"                      = "protonmail2.domainkey.d2hfypnvtrf7upmspiqkg5tf2a2ynzawy5w25shesjfhrrkrjx57a.domains.proton.ch."
   "protonmail._domainkey.zbmowrey.com"                       = "protonmail.domainkey.d2hfypnvtrf7upmspiqkg5tf2a2ynzawy5w25shesjfhrrkrjx57a.domains.proton.ch."
-  "kudr72x2mm234es5bvwfj7ojawwfgp45._domainkey.zbmowrey.com" = "kudr72x2mm234es5bvwfj7ojawwfgp45.dkim.amazonses.com"
-  "_884caa34f8ee43ffe0c15fc26b4208c6.5e.zbmowrey.com"        = "_b5574f17bfbe4cf6f62a9b74e6e29052.qqqfmgwtgn.acm-validations.aws."
-  "_6b66b92091431c840d93c4cc5b3efaf3.zbmowrey.com"           = "_3b8887c3121dcdbc64251bf5c44d9562.bsgbmzkfwj.acm-validations.aws."
-  "_17f54f2776ca9363efd360ad9cb865d8.zbmowrey.com"           = "_7c848f91080afcb220ee5882e4e7a72a.chvvfdvqrj.acm-validations.aws."
+  "_f7a053058d7789d43016916be65b1c8c.zbmowrey.com."          = "_afe26c394835f5e5c5d58ba018318444.bcnrdwzwjt.acm-validations.aws."
+  "_fbc223c4bc11fffb23e35a83b1fe2cf9.5e.zbmowrey.com."       = "_82a6ae5c2284561ffa4e6d283d986208.bcnrdwzwjt.acm-validations.aws."
 }

@@ -11,7 +11,7 @@ terraform {
 
 provider "aws" {
   region  = "us-east-1"
-  profile = terraform.workspace
+  profile = var.pipeline ? "" : "ci-${terraform.workspace}"
   default_tags {
     tags = {
       CostCenter  = var.app_name
@@ -26,7 +26,7 @@ provider "aws" {
 provider "aws" {
   alias   = "primary"
   region  = var.primary_region
-  profile = terraform.workspace
+  profile = var.pipeline ? "" : "ci-${terraform.workspace}"
   default_tags {
     tags = {
       CostCenter  = var.app_name
@@ -40,7 +40,7 @@ provider "aws" {
 provider "aws" {
   alias   = "secondary"
   region  = var.secondary_region
-  profile = terraform.workspace
+  profile = var.pipeline ? "" : "ci-${terraform.workspace}"
   default_tags {
     tags = {
       CostCenter  = var.app_name

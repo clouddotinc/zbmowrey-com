@@ -2,6 +2,10 @@ variable "app_name" {
   type    = string
   default = "zbmowrey-com"
 }
+variable "pipeline" {
+  type    = bool
+  default = false
+}
 variable "owner_name" {
   type = string
   default = "zbmowrey"
