@@ -74,13 +74,13 @@ jobs:
         id: s3_sync_primary
         if: github.event_name == 'push'
         run: |
-          aws s3 sync ./dist s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary --acl public-read --delete --cache-control 'max-age=3600'
+          aws s3 sync ./dist s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary --delete --cache-control 'max-age=3600'
 
       - name: s3 Sync Web Secondary on Push
         id: s3_sync_secondary
         if: github.event_name == 'push'
         run: |
-          aws s3 sync ./dist s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary --acl public-read --delete --cache-control 'max-age=3600'
+          aws s3 sync ./dist s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary --delete --cache-control 'max-age=3600'
 
       # If a cloudfront distribution key is defined, let's invalidate /* and refresh the cache.
 
