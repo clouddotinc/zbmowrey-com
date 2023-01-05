@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Goals'
 sidebar_position: 1
+description: Career Goals / Desired Roles
 ---
 
 # Introduction

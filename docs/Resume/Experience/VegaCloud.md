@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Principal Architect'
 sidebar_position: -1
+description: Vega Cloud / 2022-Present
 ---
 
 # Principal Architect

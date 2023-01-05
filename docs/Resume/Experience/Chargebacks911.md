@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Software Development Manager'
 sidebar_position: 2
+description: Chargebacks911 / 2018-2020 (2 Years)
 ---
 
 # Software Development Manager

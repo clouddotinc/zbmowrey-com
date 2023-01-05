@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Vice President'
 sidebar_position: 5
+description: REP Sales, Inc. / 2000-2013 (13 Years)
 ---
 
 # Vice President

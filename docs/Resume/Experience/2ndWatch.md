@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Technical Advisor'
 sidebar_position: 0
+description: 2nd Watch / 2021-2022 (18 Months)
 ---
 
 # Technical Advisor, Cloud Optimization

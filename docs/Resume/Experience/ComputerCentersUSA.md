@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Floor Manager'
 sidebar_position: 4
+description: Computer Centers, USA / 2014-2015 (13 Months)
 ---
 
 # Floor Manager

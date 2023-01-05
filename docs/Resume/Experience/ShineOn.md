@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Senior Software Engineer'
 sidebar_position: 1
+description: ShineOn.com / 2020-2021 (1 Year)
 ---
 
 # Senior Software Engineer

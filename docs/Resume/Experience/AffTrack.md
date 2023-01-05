@@ -1,6 +1,7 @@
 ---
 sidebar_label: 'Software Engineer'
 sidebar_position: 3
+description: AffTrack / 2015-2018 (3.5 Years)
 ---
 
 # Software Engineer
