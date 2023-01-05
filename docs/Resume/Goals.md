@@ -16,8 +16,9 @@ interest me would need to be assessed on a case-by-case basis, but I'm open to h
 
 ## Compensation - Ownership
 
-I really appreciate you showing your appreciation through a generous stock grant program which rewards my loyalty,
-but base salary and benefits need to be competitive. 
+Competitive base salary and benefits are more important to me than stock options, unless you're a publicly traded
+company. That said, I'm not against talking with startups where a significant equity offer is on the table, assuming
+the stars align on everything else. 
 
 ## Industries / Verticals
 

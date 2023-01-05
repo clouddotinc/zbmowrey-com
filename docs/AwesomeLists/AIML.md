@@ -1,4 +1,8 @@
-# Awesome AI/ML
+---
+sidebar_label: AI/ML
+description: Awesome AI/ML Projects
+---
+# AI/ML
 
 ## Chat GPT
 

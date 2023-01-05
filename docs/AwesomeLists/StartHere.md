@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: Think of this as the README.
 ---
 
 # Start Here
