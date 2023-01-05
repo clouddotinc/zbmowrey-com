@@ -12,8 +12,9 @@ I gather requirements from business leaders and translate those into the arcane 
 My interests and hobbies are mostly tech-focused, but I also enjoy traveling with my family and pointing out that
 it's not cold in Florida.
 
-I hope you find something of interest here. If you have ideas for something I can add, please speak up. I'd be happy
-to expand the library. 
+I hope you find something of interest here. I am very open to feedback, including but not limited to requests for
+new content of some sort, requests that I clarify or rewrite something to make more sense, corrections on technical
+points, or whatever else you might want to say. 
 
 ## What You'll Find Here
 
@@ -34,5 +35,4 @@ to expand the library.
 ## What's out of Scope? 
 
 The traditionally inflammatory topics are off limits: politics, religion, cultural norms, current events, etc. 
-
 My intent is to make this a reference library, not a blog. 
