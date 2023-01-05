@@ -33,7 +33,7 @@ jobs:
 
       - name: Branch Name From Push
         id: branch-merge
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: echo "branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Branch Name From PR
