@@ -51,7 +51,7 @@ const config = {
       navbar: {
         title: 'The Reading Room',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'My Picture',
           src: 'img/zach-round.png',
         },
         items: [
@@ -78,16 +78,16 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/ZachMowrey',
+              },
+              {
+                label: 'LinkedIn',
+                href: 'https://linkedin.com/in/zbmowrey',
+              },
+              {
+                label: 'Dev.To',
+                href: 'https://dev.to/zbmowrey',
               },
             ],
           },
@@ -96,12 +96,12 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/zbmowrey',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Zach Mowrey.`,
       },
       prism: {
         theme: lightCodeTheme,
