@@ -5,10 +5,15 @@ slug: /
 
 # Welcome
 
-I'm a technology enthusiast with more than 20 years' experience in the field. As a Cloud Software Architect,
+Hi,
+
+I'm Zach. I'm a technology enthusiast with more than 20 years' experience in the field. As a Cloud Software Architect,
 I gather requirements from business leaders and translate those into the arcane symbols required by Engineers.
 My interests and hobbies are mostly tech-focused, but I also enjoy traveling with my family and pointing out that
 it's not cold in Florida.
+
+I hope you find something of interest here. If you have ideas for something I can add, please speak up. I'd be happy
+to expand the library. 
 
 ## What You'll Find Here
 
