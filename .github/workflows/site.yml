@@ -9,8 +9,8 @@ on:
       - 'static/**'
       - 'docs/**'
       - 'blog/**'
-      - 'docusaurus.config.js'
-      - 'sidebars.js'
+      - './docusaurus.config.js'
+      - './sidebars.js'
 
 permissions:
   id-token: write
