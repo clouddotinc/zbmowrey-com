@@ -19,15 +19,6 @@ output "web-logs-bucket" {
   value       = aws_s3_bucket.web-logs.arn
 }
 
-output "five-e-cloudfront-dist" {
-  description = "5E Cloudfront Distribution ID"
-  value = aws_cloudfront_distribution.five-e-tools.id
-}
-
-output "testing-new-actions-workflow" {
-  value = "fingers-crossed5"
-}
-
 #output "gilfoyle-api-invoke-url" {
 #  description = "Gilfoyle Lambda Invocation URL"
 #  value = module.gilfoyle-api.default_apigatewayv2_stage_invoke_url

@@ -6,8 +6,11 @@ on:
       - main
     paths:
       - 'src/**'
-      - 'public/**'
-      - 'yarn.lock'
+      - 'static/**'
+      - 'docs/**'
+      - 'blog/**'
+      - 'docusaurus.config.js'
+      - 'sidebars.js'
 
 permissions:
   id-token: write
@@ -54,17 +57,17 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@master
         with:
-          node-version: '14'
+          node-version: '16'
 
-      - name: Run Yarn Install
-        run: yarn install
+      - name: Run NPM Install
+        run: npm ci
 
-      - name: Run Yarn Build
-        id: yarn-build
-        run: yarn build
+      - name: Build Dist
+        id: build
+        run: npm run build
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1.6.0
+        uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           role-to-assume: arn:aws:iam::${{steps.keys.outputs.AWS_ACCOUNT_ID}}:role/GithubDeploymentRole
           role-session-name: ${{steps.keys.outputs.ROLE_SESSION_NAME}}
@@ -74,13 +77,13 @@ jobs:
         id: s3_sync_primary
         if: github.event_name == 'push'
         run: |
-          aws s3 sync ./dist s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary --acl public-read --delete --cache-control 'max-age=3600'
+          aws s3 sync ./build s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary --acl public-read --delete --cache-control 'max-age=3600'
 
       - name: s3 Sync Web Secondary on Push
         id: s3_sync_secondary
         if: github.event_name == 'push'
         run: |
-          aws s3 sync ./dist s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary --acl public-read --delete --cache-control 'max-age=3600'
+          aws s3 sync ./build s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary --acl public-read --delete --cache-control 'max-age=3600'
 
       # If a cloudfront distribution key is defined, let's invalidate /* and refresh the cache.
 
