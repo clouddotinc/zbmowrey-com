@@ -36,6 +36,8 @@ accumulated.
 [My Credly Dashboard](https://www.credly.com/users/zachary-mowrey/badges)
 
 
+
+
 | Issuer                       | Certification                    | Issued | Expires |
 |------------------------------|----------------------------------|--------|---------|
 | AWS                          | Solutions Architect Associate    | 2019   | 2023    |

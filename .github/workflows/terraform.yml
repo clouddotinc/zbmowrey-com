@@ -3,15 +3,11 @@ on:
     paths:
       - 'terraform/**'
     branches:
-      - develop
-      - staging
       - main
   push:
     paths:
       - 'terraform/**'
     branches:
-      - develop
-      - staging
       - main
 
 permissions:

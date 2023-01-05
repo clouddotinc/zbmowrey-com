@@ -9,15 +9,14 @@ sidebar_position: -1
 **Website**: https://vegacloud.io  
 **Dates**: 2022-Present  
 **Description**:
- - Generate and validate FinOps recommendations
- - Maintain awareness of service offerings for AWS, Azure, and GCP
- - Surface and Explore new Technologies as they arise
- - Advocate DevOps best practices (IAC, VCS, CI/CD)
-   - Design & build reference deployment pipelines
- - Provide support and guidance where needed to eliminate blockers
- - Assist in troubleshooting cloud configuration or permissions issues
- - Participate in client-facing meetings to address reluctance or to provide additional technical details.
- - Convert business requirements into engineering documentation:
+ - Create/Evaluate FinOps Recommendations
+ - Maintain CSP Awareness/Knowledge
+ - Surface/Explore New Technologies
+ - Advocate Best Practices (IAC, VCS, CI/CD)
+ - Provide Internal Cloud Support
+ - Assist in Client Onboarding/Integration
+ - Address Client Recommendations Reluctance
+ - Generate Engineering Documentation from Business Requirements:
    - User stories
    - Database Designs
    - Workflow & Data Flow Diagrams

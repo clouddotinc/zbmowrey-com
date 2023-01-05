@@ -9,12 +9,12 @@ sidebar_position: 1
 **Website**: https://shineon.com  
 **Dates**: 2020-2021 (6 months)  
 **Description**:
- - Deliver new features and bug fixes to the core application:
+ - New Feature & Bug Fix Engineering:
    - Laravel & VueJS
    - Shopify Integration
    - Document Generator
    - Order Fulfillment Tracker
- - Establish best-practices driven infrastructure management:
+ - Drive Modern Infrastructure Management:
    - Multi-region availability
    - Streamlined deployment
    - Version-Controlled Configurations
