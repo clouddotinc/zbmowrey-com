@@ -10,6 +10,8 @@
 .docusaurus
 .cache-loader
 
+terraform/.terraform
+
 # Misc
 .DS_Store
 .env.local
