@@ -2,8 +2,6 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
-      - staging
       - main
     paths:
       - 'src/**'
