@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     branches:
       - develop
@@ -75,19 +76,17 @@ jobs:
 
       - name: s3 Sync Web Primary on Push
         id: s3_sync_primary
-        if: github.event_name == 'push'
         run: |
-          aws s3 sync ./build s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary --acl public-read --delete --cache-control 'max-age=3600'
+          aws s3 sync ./build s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-primary --delete --cache-control 'max-age=3600'
 
       - name: s3 Sync Web Secondary on Push
         id: s3_sync_secondary
-        if: github.event_name == 'push'
         run: |
-          aws s3 sync ./build s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary --acl public-read --delete --cache-control 'max-age=3600'
+          aws s3 sync ./build s3://${{ github.event.repository.name }}-${{ steps.branch.outputs.lowercase }}-web-secondary --delete --cache-control 'max-age=3600'
 
       # If a cloudfront distribution key is defined, let's invalidate /* and refresh the cache.
 
       - name: Invalidate Distribution Path on Push
-        if: github.event_name == 'push' && "${{steps.keys.outputs.CF_DISTRIBUTION_NAME}}" != ""
+        if: "${{steps.keys.outputs.CF_DISTRIBUTION_NAME}}" != ""
         run: aws cloudfront create-invalidation --distribution-id="${{secrets[steps.keys.outputs.CF_DISTRIBUTION_NAME]}}" --paths="/*"
 
