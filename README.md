@@ -21,3 +21,4 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 Merge changes to main and the rest happens magically. The site is deployed as a series of static HTML pages. 
+
