@@ -49,7 +49,7 @@ jobs:
         with:
           path: terraform
           fail_on: high,medium
-          enable_comment: true
+          enable_comments: true
 
           # The .terraform folder often contains example configurations which cause false positives.
           exclude_paths: terraform/.terraform/
