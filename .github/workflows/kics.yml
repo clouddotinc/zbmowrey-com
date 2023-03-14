@@ -1,0 +1,72 @@
+# Temporarily disabled through branch targeting. This lib needs a lot more work than I have time.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'terraform/**'
+    branches:
+      - main
+  push:
+    paths:
+      - 'terraform/**'
+    branches:
+      - main
+
+jobs:
+  kics_iac_security_scan:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout Repo
+        # v3.3.0
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+
+      - name: Install Terraform
+        id: tf_install
+        # v2.0.3
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1
+        with:
+          terraform_version: 1.2.5
+
+      # Syntax check - catch basic errors before we kick off more expensive operations.
+      - name: Terraform Format
+        id: tf_fmt
+        working-directory: cq/terraform
+        run: terraform fmt
+
+      - name: Create KICS Results Directory
+        # make sure results dir is created
+        run: mkdir -p results-dir
+
+      # https://kics.io/ -- Static Analysis of IAC Files. -- https://github.com/Checkmarx/kics-github-action
+      - name: run KICS Scan
+        id: kics_scan
+        uses: checkmarx/kics-github-action@1447bac40aa183d2587a7838d208b1c8c263cb84
+        with:
+          path: cq/terraform
+          fail_on: high,medium
+          enable_comment: true
+
+          # The .terraform folder often contains example configurations which cause false positives.
+          exclude_paths: cq/terraform/.terraform/
+
+#          # Excluded Categories:
+#          # - none for now. Provide a comma-separated string to exclude.
+#          exclude-categories: ""
+
+          # Excluded Queries:
+          # - IAM Access Analyzer Not Enabled (irrelevant to this stack)
+          exclude_queries: "e592a0c5-5bdb-414c-9066-5dba7cdea370"
+
+          # Enable SARIF output for GitHub Security Tab.
+          output_formats: 'sarif'
+
+      # Send the SARIF output to GitHub.
+      - name: Populate Github Security Tab Results
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: results-dir/results.sarif
