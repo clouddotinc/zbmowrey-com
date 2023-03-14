@@ -35,7 +35,7 @@ jobs:
       # Syntax check - catch basic errors before we kick off more expensive operations.
       - name: Terraform Format
         id: tf_fmt
-        working-directory: cq/terraform
+        working-directory: terraform
         run: terraform fmt
 
       - name: Create KICS Results Directory
@@ -47,12 +47,12 @@ jobs:
         id: kics_scan
         uses: checkmarx/kics-github-action@1447bac40aa183d2587a7838d208b1c8c263cb84
         with:
-          path: cq/terraform
+          path: terraform
           fail_on: high,medium
           enable_comment: true
 
           # The .terraform folder often contains example configurations which cause false positives.
-          exclude_paths: cq/terraform/.terraform/
+          exclude_paths: terraform/.terraform/
 
 #          # Excluded Categories:
 #          # - none for now. Provide a comma-separated string to exclude.
