@@ -6,12 +6,6 @@ fail-on:
   - high
   - medium
 
-# JSON is for humans and APIs. SARIF is for integration with monitoring systems.
-output-path: "results-dir"
-output-formats:
-    - json
-    - sarif
-
 # Excluding Paths
 
 # We should only be excluding paths which will cause false positives or which
