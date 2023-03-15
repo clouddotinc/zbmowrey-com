@@ -18,6 +18,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       RESULTS_DIR: results-dir
+      TF_DIR: terraform
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,11 +33,11 @@ jobs:
           enable_comments: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-          path: 'terraform'
+          path: ${{ env.TF_DIR }}
           fail_on: high,medium
 
           # The .terraform folder often triggers false positives.
-          exclude_paths: terraform/.terraform/
+          exclude_paths: ${{ env.TF_DIR }}/.terraform/
 
           # Exclude irrelevant queries (comma-separated string of GUIDs).
           exclude_queries: "e592a0c5-5bdb-414c-9066-5dba7cdea370"
