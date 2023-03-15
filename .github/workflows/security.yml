@@ -29,12 +29,21 @@ jobs:
       - name: KICS Scan
         uses: Checkmarx/kics-github-action@85b2f1325cc8f0c8df31e75e6384d6694e0f1cbf
         with:
-          config_path: ./terraform/kics.yml
           enable_comments: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          output_path: ${{ env.RESULTS_DIR }}/
-          output_formats: "sarif"
 
+          path: 'terraform'
+          fail_on: high,medium
+
+          # The .terraform folder often triggers false positives.
+          exclude_paths: terraform/.terraform/
+
+          # Exclude irrelevant queries (comma-separated string of GUIDs).
+          exclude_queries: "e592a0c5-5bdb-414c-9066-5dba7cdea370"
+
+          # Enable SARIF format to upload results to GitHub.
+          output_formats: 'sarif'
+          output_path: ${{ env.RESULTS_DIR }}/
 
       # Send the SARIF output to GitHub.
       - name: Populate Github Security Tab Results
