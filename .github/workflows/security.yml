@@ -20,6 +20,7 @@ jobs:
       RESULTS_DIR: results-dir
       TF_DIR: terraform
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2

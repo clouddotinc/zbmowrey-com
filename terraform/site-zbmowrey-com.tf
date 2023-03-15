@@ -24,6 +24,7 @@ resource "aws_kms_key" "zbmowrey-kms" {
   deletion_window_in_days = 10
 }
 
+
 resource "aws_s3_bucket" "web-primary" {
   provider = aws.primary
   bucket   = local.web_primary_bucket
