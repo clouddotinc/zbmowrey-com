@@ -1,5 +1,5 @@
 # Path to scannable files.
-path: "terraform/"
+path: "terraform"
 
 # No need to fail on low severity or informational findings.
 fail-on:
