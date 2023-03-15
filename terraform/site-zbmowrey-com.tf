@@ -62,11 +62,14 @@ resource "aws_s3_bucket" "web-primary" {
       }
     ]
   })
+
 }
+
 
 # Secondary is us-east-1 (Virginia) - this is our failover origin
 
 resource "aws_s3_bucket" "web-secondary" {
+
   provider = aws.secondary
   bucket   = local.web_secondary_bucket
   website {

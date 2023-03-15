@@ -1,21 +1,52 @@
-name: tfsec-pr-commenter
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'terraform/**'
   pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'terraform/**'
+
 jobs:
-  tfsec:
-    name: TFSec PR commenter
+  kics:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RESULTS_DIR: results-dir
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      pull-requests: write
-
     steps:
-      - name: Clone repo
-        uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: tfsec
-        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+      - name: Create KICS Results Directory
+        run: mkdir -p ${{ env.RESULTS_DIR }}
+
+      - name: KICS Scan
+        uses: Checkmarx/kics-github-action@85b2f1325cc8f0c8df31e75e6384d6694e0f1cbf
         with:
-          github_token: ${{ github.token }}
-          working_directory: ./terraform
+          path: 'terraform'
+          fail_on: high,medium
+
+          enable_comments: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # The .terraform folder often triggers false positives.
+          exclude_paths: terraform/.terraform/
+
+          # Exclude irrelevant queries (comma-separated string of GUIDs).
+          exclude_queries: "e592a0c5-5bdb-414c-9066-5dba7cdea370"
+
+          # Enable SARIF format to upload results to GitHub.
+          output_formats: 'json,sarif'
+          output_path: ${{ env.RESULTS_DIR }}/
+
+      # Send the SARIF output to GitHub.
+      - name: Populate Github Security Tab Results
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ env.RESULTS_DIR }}/results.sarif

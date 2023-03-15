@@ -1,0 +1,66 @@
+# Path to scannable files.
+path: "terraform/"
+
+# No need to fail on low severity or informational findings.
+fail-on:
+  - high
+  - medium
+
+# JSON is for humans and APIs. SARIF is for integration with monitoring systems.
+output-path: "results-dir"
+output-formats:
+    - json
+    - sarif
+
+# Excluding Paths
+
+# We should only be excluding paths which will cause false positives or which
+# doesn't define infrastructure. Exclusion is by path, which is relative to
+# the repository root.
+
+exclude-paths:
+  # .terraform folder often triggers false positives due to code examples.
+  - "terraform/.terraform/"
+  - "terraform/kics.yml"
+
+
+# Excluding Categories
+
+# Excluding categories should be carefully considered by leadership and is
+# subject to approval. Most/all categories should remain enabled barring an
+# exception. Exclusion is by category name (e.g. "Access Control").
+
+exclude-categories: [
+  # Access Control
+  # Availability
+  # Backup
+  # Best Practices
+  # Bill Of Materials
+  # Build Process
+  # Encryption
+  # Insecure Configurations
+  # Insecure Defaults
+  # Networking and Firewall
+  # Observability
+  # Resource Management
+  # Secret Management
+  # Structure and Semantics
+  # Supply-Chain
+]
+
+# Excluding Queries
+
+# We should only be excluding queries under the following conditions:
+#   - False positives
+#   - Queries that are irrelevant to the stack
+#   - Queries where an exception has been approved by the relevant stakeholders
+
+# When excluding a query, please leave line comments associated with the GUID which
+# provide the following detail:
+#   - Name of the query (e.g. "IAM Access Analyzer Not Enabled")
+#   - Reason for exclusion (e.g. "irrelevant to this stack")
+#   - Link to an approval document (e.g. a Jira ticket) if relevant.
+
+exclude-queries:
+  # IAM Access Analyzer Not Enabled (Irrelevant - Created in a different stack)
+  - "e592a0c5-5bdb-414c-9066-5dba7cdea370"
