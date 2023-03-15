@@ -32,6 +32,7 @@ jobs:
         uses: Checkmarx/kics-github-action@85b2f1325cc8f0c8df31e75e6384d6694e0f1cbf
         with:
           enable_comments: true
+          comments_with_queries: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
           path: ${{ env.TF_DIR }}
