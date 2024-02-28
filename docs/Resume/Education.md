@@ -9,7 +9,7 @@ sidebar_position: 2
 
 ### Bachelor of Science in Cloud Computing
 
-Bachelor's in Science / Cloud Computing 
+Bachelor of Science / Cloud Computing 
 Western Governor's University, Salt Lake City UT  
 Dates: 2020-2023  
 GPA: 3.0
