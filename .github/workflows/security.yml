@@ -31,14 +31,17 @@ jobs:
       - name: KICS Scan
         uses: Checkmarx/kics-github-action@85b2f1325cc8f0c8df31e75e6384d6694e0f1cbf
         with:
+          # Required for GitHub PR Comments
           enable_comments: true
           comments_with_queries: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
+          # Where to scan, and when to fail.
           path: ${{ env.TF_DIR }}
           fail_on: high,medium
 
           # The .terraform folder often triggers false positives.
+          # NOTE: This will only be present in workflows that run `terraform init`.
           exclude_paths: ${{ env.TF_DIR }}/.terraform/
 
           # Exclude irrelevant queries (comma-separated string of GUIDs).

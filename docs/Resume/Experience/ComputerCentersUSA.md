@@ -10,6 +10,15 @@ description: Computer Centers, USA / 2014-2015 (13 Months)
 **Website**: [defunct]  
 **Dates**: 2014-2015 (12 months)  
 **Description**:
+ - Tier 3 Remote Support Technician:
+   - Provided Phone & Remote Windows Desktop Support
+   - Maintained 6+ simultaneous client sessions at all times
+   - Generated CLI tooling to automate common fixes
+   - Stayed in the Top 5% of technicians by workload volume
+   - Maintained 99.7% client satisfaction rate
+ - @3 mo, Team Lead:
+   - Generated training materials to reduce complaint volume and increase velocity
+   - Acted as backup admin for 3CX voice system
  - @6 mo, Floor Manager
    - Supervised 50+ Personnel in a Call-Center environment.
    - Tracked and Reported on Individual/Team Performance
@@ -18,12 +27,3 @@ description: Computer Centers, USA / 2014-2015 (13 Months)
    - Resolved QA-reported customer complaints.
    - Selected leaders for various teams. 
    - Maintained personnel schedules.
- - @3 mo, Team Lead:
-   - Generated training materials to reduce complaint volume and increase velocity
-   - Acted as backup admin for 3CX voice system 
- - Tier 3 Remote Support Technician:
-   - Provided Phone & Remote Windows Desktop Support
-   - Maintained 6+ simultaneous client sessions at all times
-   - Generated CLI tooling to automate common fixes
-   - Stayed in the Top 5% of technicians by workload volume
-   - Maintained 99.7% client satisfaction rate
