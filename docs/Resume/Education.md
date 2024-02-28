@@ -9,9 +9,7 @@ sidebar_position: 2
 
 ### Bachelor of Science in Cloud Computing
 
-As of January 4, 2023, I'm in my final term to complete this degree. I'm contemplating an MBA in IT Management
-as a follow-up in 2024. 
-
+Bachelor of Science / Cloud Computing 
 Western Governor's University, Salt Lake City UT  
 Dates: 2020-2023  
 GPA: 3.0
@@ -20,7 +18,7 @@ GPA: 3.0
 
 I took a night course for 4 semesters to learn the ins and outs of networking. The
 course was greatly enjoyable, and fortunately for me subnetting and cabling hasn't 
-really changed in the last 20 years. 🙂
+really evolved in the last 20 years. 🙂
 
 Olney Central College, Olney IL  
 Dates: 2000-2002    
@@ -34,8 +32,6 @@ reward when I see "Passed" on the screen... almost as much as I enjoy the new kn
 accumulated.
 
 [My Credly Dashboard](https://www.credly.com/users/zachary-mowrey/badges)
-
-
 
 
 | Issuer                       | Certification                    | Issued | Expires |

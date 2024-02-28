@@ -7,38 +7,39 @@ description: Career Goals / Desired Roles
 # Introduction
 
 My strength is my ability to learn. I can rapidly get up to speed on new technologies, using a broad understanding
-of tech in general as leverage to quickly understand the key concepts and trade-offs inherent in new services.
+of tech in general as leverage to quickly understand the key concepts and trade-offs inherent in new services. I
+am a strong communicator with a passion for teaching and mentoring; my ability to distill complex topics into
+simple, understandable language has been a key factor in my success.
 
 ## Types of Roles
 
-I am interested in Cloud Architect/Software Architect roles at a Senior/Director level. Other roles which might
-interest me would need to be assessed on a case-by-case basis, but I'm open to having that conversation.
+I'm open to a variety of opportunities, including:
 
-## Compensation - Ownership
-
-Competitive base salary and benefits are more important to me than stock options, unless you're a publicly traded
-company. That said, I'm not against talking with startups where a significant equity offer is on the table, assuming
-the stars align on everything else. 
-
-## Industries / Verticals
-
-Please understand that I presently have no desire to work for companies in a marketing space: call centers, email
-marketing, affiliate marketing, and other companies of a similar nature are not where I want to spend my time.
-
-It might pique my interest if you wanted me to work somewhere really cool, like video gaming, media (tv/movies),
-blockchain/crypto, or in the machine learning/AI space. 
+- Leadership / Management Roles in Engineering, Cloud Operations, or DevOps
+- Solutions Architect / Cloud Architect / Software Architect
+- DevOps Engineer / Cloud Engineer (at a Senior or Lead level)
 
 ## Challenging But Achievable
 
 I have a preference for a role which will challenge me to grow in new directions, presenting a constant stream of new
 ideas and technologies, and require considered judgement of each. The pace of work should be brisk without threatening
-burnout. A clear work pipeline is **highly** desirable. 
+burnout. A clear work pipeline is **highly** desirable.
+
+## Industries / Verticals
+
+It might pique my interest if you wanted me to work somewhere really cool, like video gaming, media (tv/movies),
+blockchain/crypto, or in the machine learning/AI space. As an alternative to that, working for a company which
+builds the tools others use to make their products would be interesting as well.
 
 ## Remote-First with Occasional Travel
 
 I've enjoyed the lack of a daily commute more than can be expressed in a paragraph. My productivity levels are high,
 my employer engagement is stellar, and my family enjoys having me around for that extra 2-3 hours per day that I'd
-otherwise have spent driving. 
+otherwise have spent driving.
 
-I'm not opposed to occasional travel in support of a business purpose, but driving into an office on a regular basis 
-is not something I'm willing to consider at this time. Likewise, relocation is out of the picture for now. 
+- Open to occasional travel (all-hands events, team-building, etc.)
+- Not open to relocation
+- Not open to in-office or hybrid roles
+
+I live in US Eastern Time (UTC-5) and would prefer to work these hours, but I can be flexible for the right
+company, role, and team.  

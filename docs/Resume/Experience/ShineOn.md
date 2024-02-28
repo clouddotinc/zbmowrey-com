@@ -15,7 +15,7 @@ description: ShineOn.com / 2020-2021 (1 Year)
    - Shopify Integration
    - Document Generator
    - Order Fulfillment Tracker
- - Drive Modern Infrastructure Management:
+ - Drove Modern Infrastructure Management:
    - Multi-region availability
    - Streamlined deployment
    - Version-Controlled Configurations

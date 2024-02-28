@@ -10,7 +10,7 @@ description: REP Sales, Inc. / 2000-2013 (13 Years)
 **Website**: https://repsales.net  
 **Dates**: 2000-2013  
 **Description**:
- - Experienced Most Small-Biz Roles:
+ - Experienced Most Small-Business Roles:
    - Warehousing
    - Inside Sales 
    - Outside Sales
